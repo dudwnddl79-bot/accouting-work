@@ -45,6 +45,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg
 /* 카드 */
 .card{background:var(--bg2);border-radius:12px;margin-bottom:8px;overflow:hidden;border:1px solid var(--br)}
 .card.hl{border-color:var(--pt)}
+.chk-btn{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid var(--br);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;transition:all .15s;padding:0;line-height:1}
+.chk-btn.done{border-color:#4ade80;background:rgba(74,222,128,0.18);color:#4ade80}
+.card.done-card{opacity:0.38}
+.card.done-card .ctitle{text-decoration:line-through;color:var(--tx3)}
 .card-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;gap:8px}
 .card-l{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;background:var(--bg3);color:var(--tx2)}
@@ -385,7 +389,7 @@ KT 인터넷(실물계산서, 21일 자동이체건): 매월 26일경 입력</di
 김천/구미 구분해서 스캔 및 철
 
 [일자 패턴]
-진로명품(구미대형): 매월 20~21일경
+진로명품(구미대형): 매월 20~21일경, 소액본사지급 해당월 말일
 진로명품(김천대형): 매월 20일경, 전도금정산대상</div><div class="note nr">김천/구미 구분 필수</div><div class="img-sec"><button class="img-tog" onclick="togImg(13,event)">📷 예시 이미지 (1개) ▶</button><div class="img-list" id="il13" style="display:none"><div class="img-item"><div class="img-nm">📄 진로명품 생수구매(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jinro_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 15일 30일</div><div class="card"><div class="card-h" onclick="tog('c14')"><div class="card-l"><span class="badge">송금일정</span><span class="ctitle">본사 업체 송금일</span></div><span class="arr" id="ac14">▶</span></div><div class="card-b" id="c14"><div class="desc">본사에서 업체에 송금하는 날짜: 매월 15일, 30일</div><div class="note nb">참고용</div></div></div></div><div class="group"><div class="gh">▶ 매월 10일 20일 30일</div><div class="card"><div class="card-h" onclick="tog('c15')"><div class="card-l"><span class="badge">송금일정</span><span class="ctitle">직원 정산 반환일</span></div><span class="arr" id="ac15">▶</span></div><div class="card-b" id="c15"><div class="desc">출장비 등 직원 정산 반환 날짜: 10일, 20일, 30일</div><div class="note nb">참고용</div></div></div></div><div class="group"><div class="gh">▶ 3개월 후 말일</div><div class="card"><div class="card-h" onclick="tog('c16')"><div class="card-l"><span class="badge">석회석</span><span class="ctitle">석회석 매출전표 만기일</span></div><span class="arr" id="ac16">▶</span></div><div class="card-b" id="c16"><div class="desc">석회석 약품비 청구는 만기일이 3개월 후 말일
 입금채권반제 X (본사에서 처리)
 3공장 계산서 수신 담당: 유지수 (기존 김세훈/바스프이노폼에서 변경)</div><div class="note nr">담당자 변경 확인 필수 / 입금채권반제는 본사 처리</div></div></div></div><div class="group"><div class="gh">▶ 월말</div><div class="card"><div class="card-h" onclick="tog('c17')"><div class="card-l"><span class="badge">전도금</span><span class="ctitle">월말 전도금 전표 및 파일철 정리</span></div><span class="arr" id="ac17">▶</span></div><div class="card-b" id="c17"><div class="desc">[대상]
@@ -681,6 +685,20 @@ function renderSummary(){
   el.innerHTML=html;
 }
 var flt="all",srch="",omap={},emode=false,eidx=-1,dtgt=-1;
+var DONE={};
+(function(){try{var s=localStorage.getItem('acct_chk');DONE=s?JSON.parse(s):{}}catch(e){DONE={}}})();
+function saveDone(){try{localStorage.setItem('acct_chk',JSON.stringify(DONE))}catch(e){}}
+function toggleDone(k,e){if(e)e.stopPropagation();if(DONE[k])delete DONE[k];else DONE[k]=true;saveDone();renderBanner();render();}
+function resetDone(){if(!confirm('완료 체크를 모두 초기화할까요?'))return;DONE={};saveDone();renderBanner();render();}
+function groupDist(t){
+  var minD=999;
+  for(var i=0;i<DATA.length;i++){
+    if(DATA[i].t!==t)continue;
+    var days=DATA[i].days||[];
+    for(var j=0;j<days.length;j++){var d=Math.abs(days[j]-dd);if(d<minD)minD=d;}
+  }
+  return minD;
+}
 var now=new Date(),dd=now.getDate(),dm=now.getMonth()+1;
 
 function fmtDate(d){return (d<10?"0":"")+d;}
@@ -733,9 +751,11 @@ function match(item,sq,f){
 
 function renderBanner(){
   var n=DATA.filter(function(i){return isToday(i)||i.t===nearGroup;}).length;
+  var dc=Object.keys(DONE).length;
+  var rst=dc>0?' <button onclick="resetDone()" style="background:none;border:1px solid var(--br);color:var(--tx3);font-size:10px;cursor:pointer;border-radius:6px;padding:2px 8px;white-space:nowrap">초기화('+dc+')</button>':'';
   document.getElementById("banner").innerHTML=n>0
-    ?'<div class="banner"><b>&#128197; 오늘('+todayLbl()+') 할 일 '+n+'건</b><small>위 탭에서 확인</small></div>'
-    :"";
+    ?'<div class="banner" style="justify-content:space-between"><b>&#128197; 오늘('+todayLbl()+') 할 일 '+n+'건</b><small>위 탭에서 확인</small>'+rst+'</div>'
+    :rst?'<div class="banner" style="justify-content:flex-end">'+rst+'</div>':'';
 }
 
 function render(){
@@ -759,20 +779,25 @@ function render(){
     grps[item.t].items.push({d:item,i:i});
   }
   if(!ord.length){el.innerHTML='<div class="empty">검색 결과 없음 &#128269;</div>';return;}
+  ord.sort(function(a,b){return groupDist(a)-groupDist(b);});
   var html="";
   for(var g=0;g<ord.length;g++){
     var key=ord[g],grp=grps[key];
     html+='<div class="group"><div class="gh">&#9654; '+key;
     if(grp.ht)html+=' <span class="today-tag">&#128197; 오늘</span>';
     html+='</div>';
-    for(var j=0;j<grp.items.length;j++){
-      var o=grp.items[j],d=o.d,id="c"+o.i;
+    var undone=[],doneItems=[];
+    for(var j=0;j<grp.items.length;j++){var ki=String(grp.items[j].i);if(DONE[ki])doneItems.push(grp.items[j]);else undone.push(grp.items[j]);}
+    var sitems=undone.concat(doneItems);
+    for(var j=0;j<sitems.length;j++){
+      var o=sitems[j],d=o.d,id="c"+o.i;
       var ht=isToday(d)||d.t===nearGroup;
       var open=omap[id]||sq.length>0||f==="today"||ht;
       var nc=d.nt==="red"?"nr":d.nt==="blue"?"nb":d.nt==="yellow"?"ny":"ng";
-      var k=String(o.i),hi=IMGS[k]&&IMGS[k].length>0;
-      html+='<div class="card'+(ht?" hl":"")+'">';
+      var k=String(o.i),hi=IMGS[k]&&IMGS[k].length>0,dk=!!DONE[k];
+      html+='<div class="card'+(ht&&!dk?" hl":"")+(dk?" done-card":"")+'">';
       html+='<div class="card-h" onclick="tog(\''+id+'\')">';
+      html+='<button class="chk-btn'+(dk?" done":"")+'" onclick="toggleDone(\''+k+'\',event)" title="완료">&#10003;</button>';
       html+='<div class="card-l"><span class="badge">'+hl(d.cat,srch)+'</span>';
       html+='<span class="ctitle">'+hl(d.title,srch)+'</span></div>';
       html+='<span class="arr'+(open?" on":"")+'" id="a'+id+'">&#9654;</span></div>';

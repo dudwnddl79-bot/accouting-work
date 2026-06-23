@@ -783,7 +783,7 @@ function render(){
   var html="";
   for(var g=0;g<ord.length;g++){
     var key=ord[g],grp=grps[key];
-    html+='<div class="group"><div class="gh">&#9654; '+key;
+    html+='<div class="group" data-gk="'+key+'"><div class="gh">&#9654; '+key;
     if(grp.ht)html+=' <span class="today-tag">&#128197; 오늘</span>';
     html+='</div>';
     var undone=[],doneItems=[];
@@ -979,11 +979,29 @@ document.getElementById("clr").addEventListener("click",function(){
   document.getElementById("si").value="";render();
 });
 var chips=document.querySelectorAll(".chip");
+var NAV_CHIPS={월초:1,"14일":1,"15일":1,"20일":1,"25일":1,"수시":1,"말일":1,"3개월":1};
+function scrollToGroup(f){
+  var grps=document.querySelectorAll('.group[data-gk]');
+  for(var k=0;k<grps.length;k++){
+    if(grps[k].getAttribute('data-gk').toLowerCase().indexOf(f.toLowerCase())>=0){
+      var barH=(document.querySelector('.bar')||{offsetHeight:0}).offsetHeight+(document.querySelector('.fbar')||{offsetHeight:0}).offsetHeight;
+      var top=grps[k].getBoundingClientRect().top+window.pageYOffset-barH-8;
+      window.scrollTo({top:top,behavior:'smooth'});
+      return;
+    }
+  }
+}
 for(var i=0;i<chips.length;i++){
   chips[i].addEventListener("click",function(){
-    flt=this.getAttribute("data-f");
+    var f=this.getAttribute("data-f");
     for(var k=0;k<chips.length;k++)chips[k].classList.remove("on");
-    this.classList.add("on");render();
+    this.classList.add("on");
+    if(NAV_CHIPS[f]){
+      if(flt!=="all"){flt="all";chips[0].classList.add("on");this.classList.remove("on");render();}
+      setTimeout(function(ff){return function(){scrollToGroup(ff);};}(f),50);
+    } else {
+      flt=f;render();
+    }
   });
 }
 renderBanner();

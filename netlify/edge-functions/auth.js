@@ -1,16 +1,22 @@
 export default async (request, context) => {
-  const PASSWORD = Deno.env.get("SITE_PASSWORD") || "";
-  const USER = Deno.env.get("SITE_USER") || "admin";
+  let PASSWORD = "";
+  let USER = "admin";
 
-  const authHeader = request.headers.get("authorization");
-  if (authHeader && authHeader.startsWith("Basic ")) {
+  try { PASSWORD = Deno.env.get("SITE_PASSWORD") || ""; } catch (_) {}
+  try { USER = Deno.env.get("SITE_USER") || "admin"; } catch (_) {}
+
+  // 비밀번호 미설정 시 그냥 통과
+  if (!PASSWORD) return context.next();
+
+  const authHeader = request.headers.get("authorization") || "";
+  if (authHeader.startsWith("Basic ")) {
     try {
       const decoded = atob(authHeader.slice(6));
-      const colonIdx = decoded.indexOf(":");
-      const u = decoded.slice(0, colonIdx);
-      const p = decoded.slice(colonIdx + 1);
-      if (u === USER && p === PASSWORD && PASSWORD !== "") {
-        return context.next();
+      const sep = decoded.indexOf(":");
+      if (sep > -1) {
+        const u = decoded.slice(0, sep);
+        const p = decoded.slice(sep + 1);
+        if (u === USER && p === PASSWORD) return context.next();
       }
     } catch (_) {}
   }

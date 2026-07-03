@@ -108,8 +108,44 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg
 .empty{text-align:center;padding:50px 20px;color:var(--tx3);font-size:14px}
 mark{background:rgba(245,158,11,0.3);color:var(--pt);border-radius:2px}
 </style>
+<style>
+#lock-screen{position:fixed;inset:0;background:#18181b;z-index:9999;display:flex;align-items:center;justify-content:center;}
+.lock-box{background:#27272a;border:1px solid #3f3f46;border-radius:16px;padding:36px 32px;width:100%;max-width:320px;display:flex;flex-direction:column;gap:16px;text-align:center;}
+.lock-box h2{color:#f4f4f5;font-size:18px;font-weight:700;}
+.lock-box p{color:#a1a1aa;font-size:13px;}
+.lock-input{background:#18181b;border:1px solid #3f3f46;border-radius:8px;color:#f4f4f5;font-size:16px;padding:10px 14px;width:100%;outline:none;text-align:center;letter-spacing:0.1em;}
+.lock-input:focus{border-color:#f59e0b;}
+.lock-btn{background:#f59e0b;border:none;border-radius:8px;color:#18181b;cursor:pointer;font-size:15px;font-weight:700;padding:11px;width:100%;}
+.lock-err{color:#ef4444;font-size:12px;min-height:16px;}
+</style>
 </head>
 <body class="">
+<div id="lock-screen">
+  <div class="lock-box">
+    <h2>🔒 회계업무 포털</h2>
+    <p>비밀번호를 입력하세요</p>
+    <input class="lock-input" id="lock-pw" type="password" placeholder="••••••" maxlength="30" autocomplete="current-password">
+    <button class="lock-btn" id="lock-btn">확인</button>
+    <div class="lock-err" id="lock-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH='d030a4e3f4ea8f96d1409512f48b773b34496a167f9ec192787c1d93baa5c2b8';
+  var KEY='_auth_ok';
+  if(sessionStorage.getItem(KEY)==='1'){document.getElementById('lock-screen').style.display='none';return;}
+  async function tryLogin(){
+    var pw=document.getElementById('lock-pw').value;
+    if(!pw)return;
+    var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+    var hex=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+    if(hex===HASH){sessionStorage.setItem(KEY,'1');document.getElementById('lock-screen').style.display='none';}
+    else{document.getElementById('lock-err').textContent='비밀번호가 틀렸습니다.';document.getElementById('lock-pw').value='';}
+  }
+  document.getElementById('lock-btn').addEventListener('click',tryLogin);
+  document.getElementById('lock-pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
+})();
+</script>
 <div class="bar">
   <div class="bar-top">
     <h1>📋 회계업무 메뉴얼</h1>

@@ -90,6 +90,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg
 .crow:last-child{border-bottom:none}
 .cn{font-size:13px;font-weight:600}
 .ci{font-size:11px;color:var(--tx2);text-align:right}
+/* 라이트박스 */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:500;align-items:center;justify-content:center;flex-direction:column;padding:16px}
+.lb.on{display:flex}
+.lb-img{max-width:100%;max-height:85vh;border-radius:6px;object-fit:contain;touch-action:pinch-zoom}
+.lb-cap{color:rgba(255,255,255,0.55);font-size:11px;margin-top:10px;text-align:center;max-width:90vw}
+.lb-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.img-item img{cursor:zoom-in}
 /* 모달 */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px}
 .overlay.on{display:flex}
@@ -581,6 +588,11 @@ PJT 코드 작성 후 실행
   • [전자세금계산서] 청소용역비
   • [슬러지 처리 전표] 슬러지 처리비</div><div class="note nb">법인카드 제외 / 2569건 실제 기안문서 기반 / 날짜 ±1~2일 차이 가능</div></div></div></div></div>
 <button class="fab" id="fab">+</button>
+<div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
 <div class="overlay" id="ov">
   <div class="modal">
     <h3 id="mtitle">항목 편집</h3>
@@ -710,7 +722,7 @@ function renderSummary(){
       html+='<div class="card" style="margin-bottom:8px"><div style="padding:10px 12px 12px">';
       html+='<div style="font-size:11px;font-weight:700;color:var(--pt);margin-bottom:8px">'+s.ord+'. '+s.name+'</div>';
       html+='<div style="display:flex;gap:10px;align-items:flex-start">';
-      html+='<div style="flex:0 0 130px"><img src="'+SUMMARY_BASE+s.img+'" style="width:130px;border-radius:8px;border:1px solid var(--br);display:block" loading="lazy"></div>';
+      html+='<div style="flex:0 0 130px"><img src="'+SUMMARY_BASE+s.img+'" onclick="openLb(this.src,\''+s.name+'\')" style="width:130px;border-radius:8px;border:1px solid var(--br);display:block;cursor:zoom-in" loading="lazy"></div>';
       html+='<div style="flex:1;font-size:11px;line-height:1.9">';
       html+='<div style="color:var(--tx3)">적요</div><div style="color:var(--tx);font-weight:600;margin-bottom:4px">'+s.적요+'</div>';
       html+='<div style="color:var(--tx3)">PJT코드</div><div style="color:var(--pt);font-weight:700;margin-bottom:4px">'+s.pjt+'</div>';
@@ -773,6 +785,15 @@ function isTodayFlt(item){
   return item.t===nearGroup;
 }
 
+function openLb(src,cap){document.getElementById('lb-img').src=src;document.getElementById('lb-cap').textContent=cap||'';document.getElementById('lb').classList.add('on');}
+function closeLb(){document.getElementById('lb').classList.remove('on');document.getElementById('lb-img').src='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+document.addEventListener('click',function(e){
+  var img=e.target;
+  if(img.tagName!=='IMG')return;
+  var item=img.closest&&img.closest('.img-item');
+  if(item){var nm=item.querySelector('.img-nm');openLb(img.src,nm?nm.textContent.replace(/^📄\s*/,''):'');}
+});
 function esc(s){return s.replace(/[-[\]/{}()*+?.\^$|]/g,"\$&");}
 function hl(t,q){
   if(!q)return t;

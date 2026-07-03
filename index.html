@@ -740,9 +740,10 @@ function isTodayFlt(item){
 function esc(s){return s.replace(/[-[\]/{}()*+?.\^$|]/g,"\$&");}
 function hl(t,q){
   if(!q)return t;
-  try{return t.replace(new RegExp("("+esc(q)+")","gi"),"<mark>$1</mark>");}
-  catch(e){return t;}
+  try{return String(t).replace(new RegExp("("+esc(q)+")","gi"),"<mark>$1</mark>");}
+  catch(e){return String(t);}
 }
+function fmt(n){return Number(n).toLocaleString('ko-KR');}
 
 function match(item,sq,f){
   var fields=[item.t,item.cat,item.title,item.desc,item.note];
@@ -908,21 +909,15 @@ var BUDGET=[
   [105,'WOA23007-B','73410101','접대비-적격증빙수취','분기누적',2140000,1020000,1120000],
   [106,'WOA23007-B','75030100','감가상각비-사용권자산(부동산)','비통제',0,2579420,-2579420]
 ];
+var BUDGET_GROUPS={},BUDGET_GORD=[];
+(function(){for(var i=0;i<BUDGET.length;i++){var b=BUDGET[i],uid=b[1];if(!BUDGET_GROUPS[uid]){BUDGET_GROUPS[uid]=[];BUDGET_GORD.push(uid);}BUDGET_GROUPS[uid].push(b);}})();
 function renderBudget(sq){
   var el=document.getElementById("ct");
-  var fmt=function(n){return n===0?'0':Number(n).toLocaleString('ko-KR');};
-  var hlb=function(s,q){if(!q||!s)return s;var r=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return String(s).replace(r,'<mark style="background:rgba(251,191,36,0.4);border-radius:2px;padding:0 1px">$1</mark>');};
-  var groups={},gord=[];
-  for(var i=0;i<BUDGET.length;i++){
-    var b=BUDGET[i],uid=b[1];
-    if(!groups[uid]){groups[uid]=[];gord.push(uid);}
-    groups[uid].push(b);
-  }
   var h='<div class="cw"><h3>&#128176; 예산 현황</h3>';
   if(sq)h+='<div style="font-size:12px;color:var(--tx3);margin-bottom:8px">&#128269; "'+sq+'" — 아래 항목으로 이동합니다</div>';
   var firstId=null;
-  for(var g=0;g<gord.length;g++){
-    var uid=gord[g],items=groups[uid],gname=BUDGET_GRP[uid]||uid;
+  for(var g=0;g<BUDGET_GORD.length;g++){
+    var uid=BUDGET_GORD[g],items=BUDGET_GROUPS[uid],gname=BUDGET_GRP[uid]||uid;
     h+='<div class="group" style="margin-bottom:16px"><div class="gh">&#9654; '+gname+'<span style="font-size:11px;color:var(--tx3);font-weight:400;margin-left:8px">('+uid+')</span></div>';
     h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:520px">';
     h+='<thead><tr style="background:var(--cs2);color:var(--tx2);font-size:11px">';
@@ -942,9 +937,9 @@ function renderBudget(sq){
       var balCol=bal<0?'#ef4444':bal===0?'var(--tx3)':'#22c55e';
       var rowBorder=matches?'outline:2px solid #fbbf24;outline-offset:-2px;':'';
       h+='<tr id="'+bid+'" style="background:'+bg+';'+rowBorder+'">';
-      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);font-family:monospace;white-space:nowrap">'+hlb(acct,sq)+'</td>';
-      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br)">'+hlb(aname,sq)+'</td>';
-      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);text-align:center;white-space:nowrap;font-size:10px">'+hlb(ctrl,sq)+'</td>';
+      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);font-family:monospace;white-space:nowrap">'+hl(acct,sq)+'</td>';
+      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br)">'+hl(aname,sq)+'</td>';
+      h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);text-align:center;white-space:nowrap;font-size:10px">'+hl(ctrl,sq)+'</td>';
       h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);text-align:right;white-space:nowrap">'+fmt(bud)+'</td>';
       h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);text-align:right;white-space:nowrap">'+fmt(act)+'</td>';
       h+='<td style="padding:5px 6px;border-bottom:1px solid var(--br);text-align:right;white-space:nowrap;color:'+balCol+';font-weight:600">'+fmt(bal)+'</td>';
@@ -956,10 +951,7 @@ function renderBudget(sq){
   el.innerHTML=h;
   if(firstId){
     var target=document.getElementById(firstId);
-    if(target){
-      var barH=((document.querySelector('.bar')||{}).offsetHeight||0)+((document.querySelector('.fbar')||{}).offsetHeight||0);
-      setTimeout(function(){window.scrollTo({top:target.getBoundingClientRect().top+window.pageYOffset-barH-8,behavior:'smooth'});},50);
-    }
+    if(target)requestAnimationFrame(function(){scrollToEl(target);});
   }
 }
 
@@ -967,7 +959,7 @@ function render(){
   var el=document.getElementById("ct");
   var sq=srch.toLowerCase(),f=flt;
   if(f==="전표요약"&&!sq){renderSummary();return;}
-  if(f==="숙소현황"&&!sq){renderSookso();return;}
+  if(f==="숙소현황"){renderSookso();return;}
   if(f==="예산"){renderBudget(sq);return;}
   if(f==="연락처"&&!sq){
     var h='<div class="cw"><h3>&#128222; 주요 연락처</h3>';
@@ -1187,14 +1179,15 @@ document.getElementById("clr").addEventListener("click",function(){
 });
 var chips=document.querySelectorAll(".chip");
 var NAV_CHIPS={월초:1,"14일":1,"15일":1,"20일":1,"25일":1,"수시":1,"말일":1,"3개월":1};
+function scrollToEl(el){
+  var barH=(document.querySelector('.bar')||{offsetHeight:0}).offsetHeight+(document.querySelector('.fbar')||{offsetHeight:0}).offsetHeight;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-barH-8,behavior:'smooth'});
+}
 function scrollToGroup(f){
   var grps=document.querySelectorAll('.group[data-gk]');
   for(var k=0;k<grps.length;k++){
     if(grps[k].getAttribute('data-gk').toLowerCase().indexOf(f.toLowerCase())>=0){
-      var barH=(document.querySelector('.bar')||{offsetHeight:0}).offsetHeight+(document.querySelector('.fbar')||{offsetHeight:0}).offsetHeight;
-      var top=grps[k].getBoundingClientRect().top+window.pageYOffset-barH-8;
-      window.scrollTo({top:top,behavior:'smooth'});
-      return;
+      scrollToEl(grps[k]);return;
     }
   }
 }

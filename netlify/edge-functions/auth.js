@@ -1,9 +1,8 @@
-export default async (request, context) => {
-  let PASSWORD = "";
-  let USER = "admin";
+const getEnv = (k, d = "") => { try { return Deno.env.get(k) || d; } catch (_) { return d; } };
 
-  try { PASSWORD = Deno.env.get("SITE_PASSWORD") || ""; } catch (_) {}
-  try { USER = Deno.env.get("SITE_USER") || "admin"; } catch (_) {}
+export default async (request, context) => {
+  const PASSWORD = getEnv("SITE_PASSWORD");
+  const USER = getEnv("SITE_USER", "admin");
 
   // 비밀번호 미설정 시 그냥 통과
   if (!PASSWORD) return context.next();

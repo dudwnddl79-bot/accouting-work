@@ -185,6 +185,7 @@ mark{background:rgba(245,158,11,0.3);color:var(--pt);border-radius:2px}
   <button class="chip" data-f="전표요약">📊 전표요약</button>
   <button class="chip" data-f="숙소현황">🏠숙소현황</button>
   <button class="chip" data-f="예산">💰예산</button>
+  <button class="chip" data-f="전표작성">📝 전표작성요령</button>
 </div>
 <div id="banner"><div class="banner"><b>📅 오늘(06월 21일) 할 일 3건</b><small>위 탭에서 확인</small></div></div>
 <div class="drop-ov" id="dropOv">
@@ -192,401 +193,7 @@ mark{background:rgba(245,158,11,0.3);color:var(--pt);border-radius:2px}
   <div style="color:var(--pt);font-size:16px;font-weight:700">여기에 놓으면 추가돼요!</div>
 </div>
 <div class="drop-lbl" id="dropLbl" style="display: none;">🎯 산재보험 변경신청 에 드롭하세요</div>
-<div class="content" id="ct"><div class="group"><div class="gh">▶ 월초</div><div class="card"><div class="card-h" onclick="tog('c0')"><div class="card-l"><span class="badge">위탁운영비</span><span class="ctitle">월초 업무 체크리스트</span></div><span class="arr" id="ac0">▶</span></div><div class="card-b" id="c0"><div class="desc">1) 약품수불 마감 (약품투입 전자결재)
-구미(WOA14137) / 증설(WOA23007) / 김천(WOA14138) PJT 각각 처리
-전기일자 = 전월말일 (예: 5/31)
-계정: 약품비-일반 (60695101) / 정산
-첨부파일: PJT별 수불대장 + 김천은 1공장/3공장/KBI 약품사용대장 각각 첨부
-
-2) 다음 달 위탁운영비 양식 미리 만들어 놓기
-청구내역은 월별 위탁운영비 내역 복붙
-부산물 청구 구성: 부산물 / 석회석 / 증설
-
-3) 법인카드 영수증 내역 철하기
-
-4) 주유비 스캔
-
-5) 차량 키로수 사진 찍기 + 운행일지 작성
-
-6) 전도금 통장관리대장 작성
-경로: 구미김문해 폴더 → 전도금(구미) 폴더 안에 있음
-
-7) 공인인증서 관리대장 작성
-전도금 사용내역(이체내역) 있을 때만 작성
-
-8) 인장관리대장
-위탁비 청구서 결재 올릴 때 사용날짜로 기재
-
-9) 슬러지 처리비용 전표 작성
-경로: 사업소관리에서 처리
-자세한 내용은 슬러지 처리비 작성 및 전표 항목 참고</div><div class="note nb">월초에 한꺼번에 처리할 것</div><div class="img-sec"><button class="img-tog" onclick="togImg(0,event)">📷 예시 이미지 (5개) ▶</button><div class="img-list" id="il0" style="display:none"><div class="img-item"><div class="img-nm">📄 약품투입 구미(전월말)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom11.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 약품투입 증설(전월말)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom22_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 약품투입 구미(전월말,상세)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_in_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 약품투입 증설(전월말,상세)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_in_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 약품투입 김천(전월말)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_in_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 14일</div><div class="card"><div class="card-h" onclick="tog('c1')"><div class="card-l"><span class="badge">위탁운영비</span><span class="ctitle">위탁비 청구서 금액 확인 및 수정</span></div><span class="arr" id="ac1">▶</span></div><div class="card-b" id="c1"><div class="desc">금액 바뀐 달마다 내용 꼼꼼히 확인하고 수정할 것
-이 시점에는 전력비 계산서가 발행됐을 때쯤이므로 미리 입력해놓을 것
-전력비: e-accounting에서 전력비(utility)로 조회
-주의: 5월 청구 = 4월 전력비 청구 (1개월 후행)
-
-[참고] AR/AP 반제 처리 시점
-전월 위탁비 반제: 매월 11일경
-당월 Utility 반제: 매월 1~5일경
-
-[수질분석 거래처]
-(주)중앙환경기술: 수질(원수,처리수/방류수) 분석측정 수수료
-KBI, 김천3공장, 1,4-다이옥산 분석측정 각각 별도 청구
-매월 21일경, 비정산</div><div class="note nr">매달 금액 변경 여부 반드시 확인 / 전력비 미리 입력할 것</div><div class="img-sec"><button class="img-tog" onclick="togImg(1,event)">📷 예시 이미지 (2개) ▶</button><div class="img-list" id="il1" style="display:none"><div class="img-item"><div class="img-nm">📄 중앙환경기술 1,4-다이옥산(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/joongang_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 중앙환경기술 수질분석(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/joongang_gumi2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c2')"><div class="card-l"><span class="badge">약품매입처리</span><span class="ctitle">약품매입처리</span></div><span class="arr" id="ac2">▶</span></div><div class="card-b" id="c2"><div class="desc">[순서]
-1) 세금계산서 및 거래명세서 먼저 E-Accounting에서 전자결재 상신
-2) 이후 매입 처리
-
-[경로] 홈페이지 사업소관리 카테고리 → 마감관리 → 약품매입처리 → 프로젝트 선택
-
-하단에 입고량, 금액 매칭 확인 후 계산서 발행 날짜로 처리
-처리구분: 정기=정산 / 비정기=비정산
-
-[계정코드]
-약품 투입 시: 약품비-일반
-약품 입고 시: 별도 계정 적용
-
-[전표처리 - 매입 작성]
-증빙일자: 계산서 날짜
-지급일: 익월 말일
-전표 생성 후 결재 클릭 → 전표 첨부 후 결재
-적요: -회사이름-PJT
-
-[주의사항]
-석회석 부가세는 다를 수 있으니 항상 계산서에 맞게 수정
-약품 단가 변경 시: 위탁운영비 파일 해당 셀 단가 수정 필수
-26년 5월부터 엔씨에이취코리아(NCH코리아) 미생물 종균제 120만원 → 130만원으로 변경 (김천1공장 KBI, 김천3공장 각각 청구)
-
-[주요 거래처 및 일자 패턴]
-대성엠디아이(석회석): 매월 20일경, 구미/증설 각각
-오미아코리아(석회석): 매월 20일경, 증설
-주식회사 티켐(소석회): 매월 19일경, 구미/증설
-신진가스텍(TOC AIR): 매월 21일경, 비정산
-엔씨에이취코리아: 매월 15일경, 김천1공장/3공장 각각</div><div class="note nr">석회석 부가세 반드시 계산서 기준으로 수정 / 김천 고분자응집제는 ERP와 약품수불 합산해서 비교</div><div class="img-sec"><button class="img-tog" onclick="togImg(2,event)">📷 예시 이미지 (8개) ▶</button><div class="img-list" id="il2" style="display:none"><div class="img-item"><div class="img-nm">📄 대성엠디아이 석회석(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_caco3_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 대성엠디아이 석회석(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_caco3_gumi_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 오미아코리아 석회석(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_caco3_gumi_up_omiya.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 NCH코리아 약품(김천KBI)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 NCH코리아 약품(김천3공장)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_gimcheon2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 티켐 소석회(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_sosuk_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 티켐 소석회(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/yakpoom_sosuk_gumi_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 신진가스텍 TOC AIR(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sinjingas_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c3')"><div class="card-l"><span class="badge">슬러지</span><span class="ctitle">슬러지 처리비 작성 및 전표</span></div><span class="arr" id="ac3">▶</span></div><div class="card-b" id="c3"><div class="desc">[순서]
-1) 세금계산서 및 거래명세서 먼저 E-Accounting에서 전자결재 상신
-2) 이후 매입 처리
-
-[경로] 사업소관리 메뉴 → 슬러지처리 x3 에서 작성
-
-[작성]
-적요: 슬러지 ~월 처리비 (처리명 입력)
-등록일자 = 계산서 발행날짜
-코드: C0100_K 슬러지(재활용)(kg) 선택
-거래처: 성경환경(구미) / 동광환경(김천)
-단가정보 확인 후 일별 반출내역 작성 및 저장
-
-[전표처리]
-슬러지 전표처리 메뉴에서 작성
-증빙일자 = 계산서 날짜
-지급조건: 익월말일
-계정코드: 폐기물처리비-슬러지
-계산서 미수신 시 E-Tax에서 계산서 매핑 후 처리
-적요: 슬러지 ~월 처리분-PJT명
-예산계정: 폐기물 처리비-슬러지(정산)
-첨부파일: 계산서 + 거래명세서(도장 찍고) 결재 상신
-
-[일자 패턴]
-구미 슬러지(성경환경): 매월 20~22일경, 정산
-김천 슬러지(동광환경): 매월 20일경, 정산</div><div class="note nr">코드 C0100_K 필수 / 구미 담당: 진혁, 재원 / 김천 담당: 장석</div><div class="img-sec"><button class="img-tog" onclick="togImg(3,event)">📷 예시 이미지 (4개) ▶</button><div class="img-list" id="il3" style="display:none"><div class="img-item"><div class="img-nm">📄 슬러지 처리(구미, 성경환경)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sluge_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 슬러지 처리(구미, 추가건)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sluge_gumi_2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 슬러지 처리(김천, 동광환경)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sluge_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📷 슬러지 시스템 등록화면</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sluge_donggwang.png" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c4')"><div class="card-l"><span class="badge">위탁비청구</span><span class="ctitle">전표 금액 비교 및 AR AP 반제</span></div><span class="arr" id="ac4">▶</span></div><div class="card-b" id="c4"><div class="desc">약품, 슬러지, 계산서 전표 금액 철저히 비교
-투입전표 작성 시 입출고 확인 후 약품출고 전표 (약품수불, 약품수불 결재본) 첨부 후 결재
-
-[AR/AP 반제]
-G/L(입금확인) → 기수금/일반 카테고리 체크 후 추가
-적요: 입금채권반제
-차변 = 대변
-대상유형: AR
-반제처리는 위탁비만 (석회석은 제외)
-기존/증설 대상전표 각각 조회
-코오롱 인더스트리에 금액 차변/대변 매칭 후 전표생성 (금액 다르면 원인 찾기)
-입금채권반제는 소장님 결재 없이 본사에서 처리
-
-*순서
-1. E-A 접속
-→ 기타전표 → AR/AP 반제 → 전표작성 클릭, (증빙일자, 전기일자는 둘 다 동일하게 하되, 본사 재무팀에서 반제처리하라고 Excel 자료에 보면 날짜가 있음) 
-* 적요 입금채권반제 처리
-→ 대상유형 (AR) 체크, 거래처명 ex) 김천(인더(1공장)) or (이앤피,바스프(3공장)) 
-귀속부서 
-→ 코오롱폐수(김천) 선택 후 조회 클릭 후 동일 내용 추가(더블클릭해도 추가됨) 
-→ 위 내용이 반제내역에 추가되면 G/L 클릭
-→ 계정코드 가수금-일반 클릭 , 귀속부서 코오롱김천폐수처리장 운영 선택,
-→ 내용 추가 
-
-전표 생성 및 전자 결재, (소장님 결재 X)
-
-같은 날에 조회가 된다면, 구미든 김천이든 한꺼번에 처리 가능해보임
-
-
-
-[일자 패턴]
-전월 위탁비(폐수처리시설) 반제: 매월 11일경
-당월 Utility 반제: 매월 1~5일경
-반제전표 유형: WC</div><div style="margin-top:6px;font-size:10px;color:var(--tx3)">📅 추가일: 2026-06-16</div><div class="note nr">금액 불일치 시 원인 반드시 찾기 / 입금채권반제는 소장님 결재 X (본사처리)</div><div class="img-sec"><button class="img-tog" onclick="togImg(4,event)">📷 예시 이미지 (6개) ▶</button><div class="img-list" id="il4" style="display:none"><div class="img-item"><div class="img-nm">📄 반제전표(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/banjae_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 반제전표(김천, 추가건)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/banjae_gimcheon2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 반제전표(구미 전체)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/banjae_gumiall.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 Utility 진행매출 상계(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_jinheng_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 Utility 진행매출 상계(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_jinheng_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 Utility 진행매출 상계(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_jinheng_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 15일</div><div class="card"><div class="card-h" onclick="tog('c5')"><div class="card-l"><span class="badge">산재보험</span><span class="ctitle">산재보험 변경신청</span></div><span class="arr" id="ac5">▶</span></div><div class="card-b" id="c5"><div class="desc">매월 15일 산재보험 변경신청 및 업무연락 상신
-단, 퇴사 / 입사 / 변경사항 있을 때만 진행
-인원은 변동 있는 인원까지 포함하면 됨</div><div class="note nb">변동사항 없으면 신청 불필요</div><div class="img-sec"><button class="img-tog" onclick="togImg(5,event)">📷 예시 이미지 (1개) ▶</button><div class="img-list" id="il5" style="display:none"><div class="img-item"><div class="img-nm">📄 산재보험 변경신청 업무연락</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sanjae_change.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 20일 <span class="today-tag">📅 오늘</span></div><div class="card hl"><div class="card-h" onclick="tog('c6')"><div class="card-l"><span class="badge">위탁운영비</span><span class="ctitle">위탁운영비 Excel 작성 및 공문 결재</span></div><span class="arr on" id="ac6">▶</span></div><div class="card-b on" id="c6"><div class="desc">[작성 순서]
-1) 위탁운영비 Excel 파일 작성
-2) 결재 올려서 결재본(공문) 만들기
-3) 결재본 + 계산서 함께 청구
-4) 위탁운영비 작성 완료 후 총괄 파일에 금액 입력 및 업데이트
-
-[청구 대상 - 총 결재본 5종]
-부산물 / 부산물(증설) / 석회석 / 김천 인더(1공장, KII) / 3공장(플라스틱, 바스프이노폼)
-
-[전달 방법]
-김천 관련: 작성 후 오상재 과장님께 전달
-부산물: 청구서 스캔본만 박필조에게 청구 (원본 전달)
-구미폐수: 스캔 후 원본은 환경관리팀 전달, 스캔자료는 위탁운영비 파일철에 철
-원본 전달 후 스캔(복사본) 출력해서 위탁운영비 파일철에 철
-
-[공문 수신처 5종]
-1. 구미폐수: 코오롱인더스트리(주) 환경관리팀장
-2. 구미부산물+석회석: 코오롱인더스트리(주) 아라미드 생산 담당
-3. 김천1공장: 코오롱인더스트리(주) 김천1공장장
-4. 김천3공장: 코오롱인더스트리(주) 김천3공장장 (참조: 환경공무팀장)
-작성일: 매월 21일경</div><div class="note nr">결재본 5종 빠짐없이 확인 / 총괄 파일 업데이트 필수</div><div class="img-sec"><button class="img-tog" onclick="togImg(6,event)">📷 예시 이미지 (4개) ▶</button><div class="img-list" id="il6" style="display:none"><div class="img-item"><div class="img-nm">📄 위탁운영비 공문(김천1공장)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 위탁운영비 공문(김천3공장)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_gimcheon_3gongjang.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 위탁운영비 공문(구미부산물+석회석)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_gumi_busan.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 위탁운영비 공문(구미폐수)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_gumi_pesu.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card hl"><div class="card-h" onclick="tog('c7')"><div class="card-l"><span class="badge">위탁운영비</span><span class="ctitle">E-accounting 매출전표 작성</span></div><span class="arr on" id="ac7">▶</span></div><div class="card-b on" id="c7"><div class="desc">[경로] E-accounting → 매출전표 메뉴
-
-[작성 방법]
-증빙일자 = 전기일자 = 당일 날짜
-만기일: 20일 (석회석 약품비 청구는 3개월 후 말일)
-금액: 공급가액 아닌 총금액으로 작성
-부가세 반드시 확인 후 작성
-저장 후 전표생성 → 전표 결재
-
-[청구 항목 및 만기일]
-구미폐수: 익월 20일
-구미부산물: 익월 20일
-구미부산물(증설): 익월 20일
-석회석: 3개월 후 말일
-김천1공장: 익월 20일
-김천3공장: 익월 20일
-전기일자/증빙일자: 모두 매월 22일경</div><div class="note nr">총금액 작성 필수 (공급가액 X) / 석회석은 만기일 3개월 후 말일</div><div class="img-sec"><button class="img-tog" onclick="togImg(7,event)">📷 예시 이미지 (11개) ▶</button><div class="img-list" id="il7" style="display:none"><div class="img-item"><div class="img-nm">📄 폐수 위탁비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_pesu.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 부산물 위탁비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_gumi_busan.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 부산물(증설) 위탁비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_busan_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 석회석 약품비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_caco3.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 김천1공장 위탁비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 김천3공장 위탁비 청구서</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/witak_cheongu_gimcheon3gong.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 부산물 전력비(기존)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_busan.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 부산물 전력비(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_busan_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 폐수 전력비(기존)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_pesu.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 폐수 전력비(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_pesu_up.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 폐수 전력비(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/utility_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 20일~22일 <span class="today-tag">📅 오늘</span></div><div class="card hl"><div class="card-h" onclick="tog('c8')"><div class="card-l"><span class="badge">전도금신청</span><span class="ctitle">전도금 신청 (SAP)</span></div><span class="arr on" id="ac8">▶</span></div><div class="card-b on" id="c8"><div class="desc">[신청 금액]
-구미: 650,000원 / 김천: 300,000원
-
-[방법]
-SAP에서 날짜 지정 및 구미, 김천 코드 입력
-첨부파일: 신청서 + 템플릿 (구미, 김천 둘 다)
-청구일자는 당월로 작성</div><div class="note nr">구미 650,000원 / 김천 300,000원 / 청구일자 당월</div><div class="img-sec"><button class="img-tog" onclick="togImg(8,event)">📷 예시 이미지 (2개) ▶</button><div class="img-list" id="il8" style="display:none"><div class="img-item"><div class="img-nm">📄 익월자금청구(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_sincheong.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 익월자금청구(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_sincheong_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 25일</div><div class="card"><div class="card-h" onclick="tog('c9')"><div class="card-l"><span class="badge">법인카드</span><span class="ctitle">법인카드 식비 전표</span></div><span class="arr" id="ac9">▶</span></div><div class="card-b" id="c9"><div class="desc">[경로] 매입(전자) / 법인카드
-전기일자: 대체로 25일
-전표 생성 후 전자결재 → 다 작성하고 일괄결재
-
-[부가세 공제 구분]
-법인카드 내역관리 → 공제구분 셀: 공제 X / 불공제 O
-부가세 없는 경우: 교육비(강의, 세미나 등), 우체국 택배(공공기관)
-영수증 반드시 확인해서 부가세 여부 체크</div><div class="note nr">영수증으로 부가세 여부 반드시 확인</div><div class="img-sec"><button class="img-tog" onclick="togImg(9,event)">📷 예시 이미지 (8개) ▶</button><div class="img-list" id="il9" style="display:none"><div class="img-item"><div class="img-nm">📄 식대(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 식대(구미, 추가건)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_gumi2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 식대(증설)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_up_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 식대(증설, 추가건)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_up_2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 식대(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 카페 식대(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sikdae_cafe_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 엔아이테크 청소용역(4월분)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/nitech_ajumerni.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 엔아이테크 청소용역(5월분)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/nitech_ajumerni2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 월중 수시</div><div class="card"><div class="card-h" onclick="tog('c10')"><div class="card-l"><span class="badge">전도금</span><span class="ctitle">계좌이체 및 전도금 전표</span></div><span class="arr" id="ac10">▶</span></div><div class="card-b" id="c10"><div class="desc">[이체]
-하나기업뱅킹에서 이체
-통장: 구미 기존PJT / 증설PJT / 김천 각각 별도 (구미 증설 비번 동일)
-이체 후: 이체확인증 + 고지서 스캔 → 결재 상신
-결재본 및 세부내역 (영수증 프린트 + 지출원인 품의서 철)
-
-[전표처리]
-E-Accounting → 매입(실물) → 실물세금전표 작성
-전기일자: 항상 금일
-대변 = 차변 (0원)
-거래처, 지급처 작성
-지급보류 메뉴에 전도금 / 가지급금 대상에 체크
-
-[적요]
-~월 전도금 사용분
-안전용품: 안전장비^~구매 형식
-
-[주의]
-고지서, 부가세 없는 것 → 영수증 처리
-우방: 돈은 구미에서, 계정은 증설PJT로 (삼도는 기존PJT)
-증빙일자 = 작성일자 / 영수증 카테고리에서 처리 / 거래처: 영남에너지 (부가세 확인)</div><div class="note nr">우방 계정 증설PJT 실수 주의 / 지급보류-전도금 체크 필수</div><div class="img-sec"><button class="img-tog" onclick="togImg(10,event)">📷 예시 이미지 (4개) ▶</button><div class="img-list" id="il10" style="display:none"><div class="img-item"><div class="img-nm">📄 전도금 사용분(구미, 전파/임차료/가스비)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_used_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 전도금 사용분(김천, 인터넷/정수기/생수/전파/관리비)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_used_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 전도금 반납(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_bannap_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 전도금 반납(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeondo_bannap_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c11')"><div class="card-l"><span class="badge">전도금</span><span class="ctitle">인터넷 전화 전도금 전표</span></div><span class="arr" id="ac11">▶</span></div><div class="card-b" id="c11"><div class="desc">[날짜 처리]
-명세서 작성일자 = 세금계산서 날짜
-증빙일자, 전기일자 = 거래명세서 날짜
-
-[계정 및 처리]
-계정: 전산-전용회선, 비정산
-지로전자증빙에서 부가세 반드시 확인
-부가세 상이 시: 부가세액에서 직접 변경
-
-[적요]
-인터넷 사용료: 인터넷 사용료-구미 (또는 -김천)
-전화사용료: KT 전화료-구미
-
-[주의]
-KT 청구서 중 21일 자동이체 건 1개는 직접 명세서 스캔 후 전표 입력
-전월 자료 참고: 결재상신함에서 전월 건 열람
-
-[일자 패턴]
-KT 인터넷(지로) 구미: 매월 6일경
-KT 인터넷(지로) 김천: 매월 14~18일경
-KT 전화료(지로) 구미/김천: 매월 6일경
-KT 인터넷(실물계산서, 21일 자동이체건): 매월 26일경 입력</div><div class="note nr">KT 21일 자동이체 건 직접 입력 필수 / 전월자료: 결재상신함 참고</div><div class="img-sec"><button class="img-tog" onclick="togImg(11,event)">📷 예시 이미지 (7개) ▶</button><div class="img-list" id="il11" style="display:none"><div class="img-item"><div class="img-nm">📄 KT 인터넷 지로(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/internet_used_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 KT 인터넷 지로(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/internet_used_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 KT 인터넷 실물계산서(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/internet_used_gimcheon2.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 KT 전화료(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/ktphone_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 KT 전화료(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/ktphone_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 코웨이 정수기 임차료(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/coway_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 통신비 지원(장유덕)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/tongsin_jang.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c12')"><div class="card-l"><span class="badge">지로관리비</span><span class="ctitle">지로 처리 (가스비, KT 인터넷 등)</span></div><span class="arr" id="ac12">▶</span></div><div class="card-b" id="c12"><div class="desc">[경로] 매입(전자) → 지로전표 → 지급일자, 지로 전자증빙에서 처리
-계정: 복리후생비(숙소관리비)
-비정산
-
-[결재 제목]
-~월 숙소관리비 또는 ~월 숙소가스비 (뒤에 아파트명 동 호수 포함)
-
-[파일 보관]
-카드 및 전도금 폴더 안에 항상 보관
-
-[이체 시]
-하나기업뱅킹에서 이체
-관리비, 가스비: 이체 확인증 + 고지서 스캔해서 결재 상신
-가스비는 고지서 왼쪽면 커팅 후 이체내역확인서와 함께 철
-
-[거래처 및 일자 패턴]
-영남에너지서비스(가스비): 매월 19일경 - 동원미라클, 삼도뷰엔빌, 우방신세계 각각
-한국전력공사(전기료): 매월 2일경 - 동원미라클
-주의: 우방신세계, 신세계타운 임차료/가스비는 증설(WOA23007) 계정으로 처리</div><div class="note nb">비정산 / 숙소관련 문의는 HR에 문의</div><div class="img-sec"><button class="img-tog" onclick="togImg(12,event)">📷 예시 이미지 (11개) ▶</button><div class="img-list" id="il12" style="display:none"><div class="img-item"><div class="img-nm">📄 동원미라클 가스비</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_gas_miracle.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 삼도뷰엔빌 가스비</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_gas_samdo.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 우방신세계 가스비(증설계정)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_gas_woobang.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 동원미라클 전기료</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_miracle.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 동원미라클 숙소관리비</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_miracle_tax.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 삼도뷰엔빌 임차료</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_samdo.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 삼도뷰엔빌 숙소관리비</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_samdo_tax.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 신세계타운 임차료(증설계정)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_sinsae.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 우방신세계 숙소관리비(증설계정)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/sookso_woobang_tax.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 전파사용료(구미)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeonpa_gumi.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div><div class="img-item"><div class="img-nm">📄 전파사용료(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jeonpa_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div><div class="card"><div class="card-h" onclick="tog('c13')"><div class="card-l"><span class="badge">전도금</span><span class="ctitle">생수 (김천: 진로명품)</span></div><span class="arr" id="ac13">▶</span></div><div class="card-b" id="c13"><div class="desc">박미화씨에게 계좌이체
-계정: 단기리스료 비품/비정산
-서류: 계산서, 명세서, 이체확인증 스캔 후 철
-김천/구미 구분해서 스캔 및 철
-
-[일자 패턴]
-진로명품(구미대형): 매월 20~21일경, 소액본사지급 해당월 말일
-진로명품(김천대형): 매월 20일경, 전도금정산대상</div><div class="note nr">김천/구미 구분 필수</div><div class="img-sec"><button class="img-tog" onclick="togImg(13,event)">📷 예시 이미지 (1개) ▶</button><div class="img-list" id="il13" style="display:none"><div class="img-item"><div class="img-nm">📄 진로명품 생수구매(김천)</div><img src="https://dudwnddl79-bot.github.io/accouting-work/images/jinro_gimcheon.jpg" style="width:100%;border-radius:8px;margin-top:4px"></div></div></div></div></div></div><div class="group"><div class="gh">▶ 매월 15일 30일</div><div class="card"><div class="card-h" onclick="tog('c14')"><div class="card-l"><span class="badge">송금일정</span><span class="ctitle">본사 업체 송금일</span></div><span class="arr" id="ac14">▶</span></div><div class="card-b" id="c14"><div class="desc">본사에서 업체에 송금하는 날짜: 매월 15일, 30일</div><div class="note nb">참고용</div></div></div></div><div class="group"><div class="gh">▶ 매월 10일 20일 30일</div><div class="card"><div class="card-h" onclick="tog('c15')"><div class="card-l"><span class="badge">송금일정</span><span class="ctitle">직원 정산 반환일</span></div><span class="arr" id="ac15">▶</span></div><div class="card-b" id="c15"><div class="desc">출장비 등 직원 정산 반환 날짜: 10일, 20일, 30일</div><div class="note nb">참고용</div></div></div></div><div class="group"><div class="gh">▶ 3개월 후 말일</div><div class="card"><div class="card-h" onclick="tog('c16')"><div class="card-l"><span class="badge">석회석</span><span class="ctitle">석회석 매출전표 만기일</span></div><span class="arr" id="ac16">▶</span></div><div class="card-b" id="c16"><div class="desc">석회석 약품비 청구는 만기일이 3개월 후 말일
-입금채권반제 X (본사에서 처리)
-3공장 계산서 수신 담당: 유지수 (기존 김세훈/바스프이노폼에서 변경)</div><div class="note nr">담당자 변경 확인 필수 / 입금채권반제는 본사 처리</div></div></div></div><div class="group"><div class="gh">▶ 월말</div><div class="card"><div class="card-h" onclick="tog('c17')"><div class="card-l"><span class="badge">전도금</span><span class="ctitle">월말 전도금 전표 및 파일철 정리</span></div><span class="arr" id="ac17">▶</span></div><div class="card-b" id="c17"><div class="desc">[대상]
-숙소 관리비, 가스비, 3개월마다 전파사용료 등
-우방, 신세계 같은 경우는 실물로 처리
-
-[경로]
-E-accounting → 매입(실물) → 영수증 메뉴에서 전표생성 후 결재
-
-[작성]
-증빙일자 = 전기일자
-이체하는 경우에는 이체일자 당일로
-지급보류 메뉴에 전도금 / 가지급금 대상에 체크
-적요: ~월 숙소 관리비 (아파트명 동 호수)
-우방, 신세계는 반드시 실물로 처리
-
-[지출원인품의서 작성 및 파일철 정리]
-지출원인품의서 위치: 문해 형님 뒷자리 캐비넷
-전도금 항목별 지출원인품의서 작성 후 파일철에 철
-
-1. 숙소가스비
-   갑지 + 청구서
-
-2. 관리비 (숙소)
-   갑지 + 청구서 + 이체내역서 (직접 이체하는 경우)
-
-3. KT 인터넷 사용료
-   갑지 + 청구서
-
-4. 전화료
-   갑지 + 청구서
-
-5. 생수
-   갑지 + 청구서
-
-6. 전파사용료 (3개월마다)
-   갑지 + 청구서
-
-7. 기타 전도금 항목
-   갑지 + 해당 청구서</div><div class="note nr">우방, 신세계는 실물 처리 / 지급보류-전도금 체크 필수 / 지출원인품의서 파일철 필수</div></div></div><div class="card"><div class="card-h" onclick="tog('c18')"><div class="card-l"><span class="badge">식수</span><span class="ctitle">월말 식수 처리 (ON카페, 기본식, 을목식당)</span></div><span class="arr" id="ac18">▶</span></div><div class="card-b" id="c18"><div class="desc">[대상 업체]
-ON카페 / 기본식(식당) / 을목식당 3개 업체
-
-[처리 순서]
-1) 계산서 들어오면 3개 업체 내역서 확인
-2) 엑셀(간소화) 정리
-3) 검수인 도장 찍기
-4) 스캔: 계산서(앞) + 내역서(뒤) 순서로
-5) 계산서 날짜 기준으로 결재 상신
-
-[구분]
-구미 / 증설 / 김천 PJT별로 구분
-업체: 코오롱 글로벌
-적요: ~월 식대 (예: 5월 식대)
-결재 제목: 업체명-PJT</div><div class="note nr">스캔 순서: 계산서 앞, 내역서 뒤 / PJT별 구분 필수</div></div></div><div class="card"><div class="card-h" onclick="tog('c19')"><div class="card-l"><span class="badge">손익분석</span><span class="ctitle">손익분석 업데이트</span></div><span class="arr" id="ac19">▶</span></div><div class="card-b" id="c19"><div class="desc">[위치]
-DB자료 → 26년 예산 폴더
-양식: 구미, 증설, 김천 각각 있음
-
-[방법]
-DB자료 복사 후 붙여넣기
-SAP 예산대비 실적명세서 (제일 밑에)
-PJT 코드 작성 후 실행
-자료는 엑셀로 Export</div><div class="note nb">위탁운영비 작성 완료 후 총괄 파일 금액 입력 및 업데이트</div></div></div><div class="card"><div class="card-h" onclick="tog('c20')"><div class="card-l"><span class="badge">월말마감</span><span class="ctitle">차량운행일지 (카니발)</span></div><span class="arr" id="ac20">▶</span></div><div class="card-b" id="c20"><div class="desc">월말 키로수 사진 대지 + 수기로 키로수 입력
-소장님 출장 제외하고 나머지 월말 키로수 알아서 맞춰서 적기</div></div></div><div class="card"><div class="card-h" onclick="tog('c21')"><div class="card-l"><span class="badge">월말마감</span><span class="ctitle">전도금 통장관리내역 작성</span></div><span class="arr" id="ac21">▶</span></div><div class="card-b" id="c21"><div class="desc">전도자금 파일에 구미/김천 둘 다 기입
-사용내역 작성 및 출력 후 철해서 결재 받기
-
-[전도금 반납]
-월별 전도금 파일 열고 잔고대로 본사 송금
-입금통장 표시: 전도금구미, 전도금김천 형식으로 작성
-전도금 통장 잔액이 0원 되도록 반납
-본사 전도금 반납도 마지막에 작성
-
-[대장 작성]
-공인인증서 사용대장 작성 (구미/김천 구분, 동일날짜 일괄 작성)
-자동이체 내역도 작성 (본사 전도금 반납 포함 마지막에 작성)</div></div></div><div class="card"><div class="card-h" onclick="tog('c22')"><div class="card-l"><span class="badge">월말마감</span><span class="ctitle">월별 매출 산출 총괄</span></div><span class="arr" id="ac22">▶</span></div><div class="card-b" id="c22"><div class="desc">폐수 분석비: 김천/구미 모두 1.4원수만 정산 처리
-위탁운영비 작성 완료 후 총괄 파일에 금액 입력 업데이트</div><div class="note nr">1.4원수만 정산</div></div></div></div><div class="group"><div class="gh">▶ 추후 학습</div><div class="card"><div class="card-h" onclick="tog('c23')"><div class="card-l"><span class="badge">예산추경</span><span class="ctitle">예산 추경</span></div><span class="arr" id="ac23">▶</span></div><div class="card-b" id="c23"><div class="desc">예산 추경 시 앞 달 예산을 당겨와야 함
-예시) 출장비 기존 예산 작성 후 해당 예산을 대체할 다른 예산항목에서 차감(-)
-아직 실무 적용 전, 추후 재교육 필요</div><div class="note nb">나중에 다시 배울 것</div></div></div></div><div class="group"><div class="gh">▶ 일자별 전표 상신</div><div class="card"><div class="card-h" onclick="tog('c24')"><div class="card-l"><span class="badge">전표상신</span><span class="ctitle">일자별 반복 전표 상신 패턴 (법인카드 제외)</span></div><span class="arr" id="ac24">▶</span></div><div class="card-b" id="c24"><div class="desc">2569건 기안문서 분석 기준 — 날짜는 월마다 ±1~2일 차이 있을 수 있음
-법인카드 제외
-
-╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏╏
-📌 1일
-  • [약품 투입 전표] 약품투입 — 구미 / 증설 / 김천
-  • [전도금 정산] 전도금 반납 — 구미 / 김천
-  • [전자세금계산서] 식대 — 구미 / 증설 / 김천
-
-📌 2~3일
-  • [전자세금계산서] 전월 Utility 사용료 — 폐수·부산물·증설·김천
-  • [매출 전표] 전월 Utility 진행매출 — 구미 / 증설 / 김천
-  • [AR/AP 반제] 전월 Utility 진행매출 반제
-  • [지로] 숙소 전기료 (동원미라클)
-  • [약품 투입 전표] 약품투입
-  • [전도금 정산] 전도금 반납·사용분 정산
-
-📌 4~8일
-  • [전자세금계산서] 전월 Utility 사용료 (늘게 들어오는 건)
-  • [매출 전표] 전월 Utility 진행매출
-  • [AR/AP 반제] 반제 처리
-  • [지로] 숙소 전기료
-  • [슬러지 처리 전표] 슬러지 처리비
-  • [약품 투입 전표] 약품투입
-
-📌 9~10일
-  • [영수증] 숙소 임차료 — 코오론하늘칄 / 삼도뷰앱빌 / 신세계타운
-  • [전자세금계산서] 정수기 임차료 (코웨이)
-  • [실물계산서] 숙소 전기료 (김천)
-  • [전도금 정산] 전도금 사용분 정산
-
-📌 13~16일
-  • [지로] KT 전화료 — 구미 / 김천
-  • [지로] 인터넷 사용료 — 구미
-  • [영수증] 숙소 임차료 — 코오론하늘칄 / 삼도뷰앱빌
-  • [AR/AP 반제] 입금채권반제 처리
-  • [업무연락] 산재보험 변경 신청 (14~15일, 변동사항 있을 때만)
-
-📌 17~18일
-  • [약품 구매 전표] 약품구매 — NCH코리아 등
-  • [지로] KT 전화료·인터넷 (늘게 들어오는 건)
-  • [영수증] 숙소 임차료
-  • [익월자금청구] 익월 자금 청구
-
-📌 19~21일
-  • [공문] 위탁운영비 청구 공문 — 부산물 / 폐수 / 김천
-  • [매출 전표] 위탁비 청구 — 부산물 / 폐수 / 증설 / 석회석 / 김천
-  • [약품 구매 전표] 약품구매 — 구미 / 증설 / 김천
-  • [슬러지 처리 전표] 슬러지 처리비
-  • [AR/AP 반제] 입금채권반제
-  • [실물계산서] KT 인터넷 — 김천
-  • [익월자금청구] 익월 자금 청구
-  • [지로] KT 전화료·인터넷
-
-📌 22~24일
-  • [약품 구매 전표] 약품구매 대량 발생 — 오미아·티켈·SNF 등
-  • [매출 전표] 위탁비 청구 (늘게 처리되는 건)
-  • [공문] 위탁운영비 청구 공문
-  • [슬러지 처리 전표] 슬러지 처리비
-  • [AR/AP 반제] 입금채권반제
-  • [영수증] 숙소 관리비 — 코오론하늘칄 / 삼도뷰앱빌
-  • [지로/실물계산서] 숙소 가스비 — 삼도 / 우방 / 동원
-  • [G/L 대체] 예금이자 계정대체
-
-📌 25~28일
-  • [전자세금계산서] 식대 — 구미 / 증설 / 김천
-  • [영수증] 숙소 관리비·임차료
-  • [지로/실물계산서] 숙소 가스비
-  • [영수증] 전파사용료 — 구미 / 김천 (3개월마다)
-  • [전도금 정산] 전도금 사용분·반납
-
-📌 28~31일
-  • [전도금 정산] 전도금 사용분·반납 — 구미 / 김천
-  • [약품 투입 전표] 약품투입 — 구미 / 증설 / 김천
-  • [전자세금계산서] 청소용역비
-  • [슬러지 처리 전표] 슬러지 처리비</div><div class="note nb">법인카드 제외 / 2569건 실제 기안문서 기반 / 날짜 ±1~2일 차이 가능</div></div></div></div></div>
+<div class="content" id="ct"></div>
 <button class="fab" id="fab">+</button>
 <div class="lb" id="lb" onclick="if(event.target===this)closeLb()">
   <button class="lb-close" onclick="closeLb()">✕</button>
@@ -1061,12 +668,71 @@ function renderBudget(sq){
   }
 }
 
+function renderGuide(){
+  var el=document.getElementById("ct");
+  el.innerHTML='<div class="cw" style="padding:12px 0">'+
+'<h3 style="margin:0 0 16px;font-size:17px">📝 전표 작성 요령</h3>'+
+
+'<div class="card" style="margin-bottom:14px">'+
+'<div class="card-h" onclick="tog(\'g1\')" style="cursor:pointer">'+
+'<div class="card-l"><span class="badge" style="background:#4a90d9">매출</span>'+
+'<span class="ctitle">① 전력비 진행매출 (utility) 작성요령</span></div>'+
+'<span class="arr" id="ag1">▶</span></div>'+
+'<div class="card-b" id="g1" style="display:none"><div class="desc">'+
+'E-A 일반매출 → 채권전표 작성\n'+
+'· 증빙 · 전기일자 — 말일자 or 계산서 날짜로 해도 무방함\n'+
+'· 전표 유형 → 진행매출로 변경\n'+
+'  ※ 차변계정이 자동으로 외상매출금-진행매출로 변경되었는지 확인\n'+
+'· 만기일 — (예: 7월 → 08/20)\n'+
+'· 고객사 — 구미공장 / 구미공장(증설) / 김천공장\n'+
+'· 계정 — 국내 O&amp;M 사업수익-조정수익\n'+
+'· 적요 (예) 2026년 7월 utility 진행매출  ※예산프로그램 비목 없음\n'+
+'· 금액\n'+
+'  - 구미: 폐수 + 부산물 부가세 포함금액\n'+
+'  - 증설: 폐수2 + 부산물2 부가세 포함금액\n'+
+'  - 김천: 김천 1·3공장 + 바스프 부가세 포함금액'+
+'</div></div></div>'+
+
+'<div class="card" style="margin-bottom:14px">'+
+'<div class="card-h" onclick="tog(\'g2\')" style="cursor:pointer">'+
+'<div class="card-l"><span class="badge" style="background:#e07b39">상계</span>'+
+'<span class="ctitle">② 전력비 진행매출 상계 (utility) 작성요령</span></div>'+
+'<span class="arr" id="ag2">▶</span></div>'+
+'<div class="card-b" id="g2" style="display:none"><div class="desc">'+
+'E-A 기타메뉴 → AR/AP 반제\n'+
+'· 증빙 · 전기일자 — 매월 1일자로 설정\n'+
+'· 적요 (예) ~월 utility 사용료 진행매출 상계_PJT명\n'+
+'· 작성 순서\n'+
+'  1) AR 대변 선택 → 거래처 검색 (구미 / 증설 / 김천)\n'+
+'     → 진행매출 금액 선택 후 추가\n'+
+'  2) 작성된 행 아래 [행추가] → 동일 내용으로 차변 금액 작성'+
+'</div></div></div>'+
+
+'<div class="card" style="margin-bottom:14px">'+
+'<div class="card-h" onclick="tog(\'g3\')" style="cursor:pointer">'+
+'<div class="card-l"><span class="badge" style="background:#5aa05a">매입</span>'+
+'<span class="ctitle">③ 전력비 사용료 (utility) 작성요령</span></div>'+
+'<span class="arr" id="ag3">▶</span></div>'+
+'<div class="card-b" id="g3" style="display:none"><div class="desc">'+
+'※ 계산서 발행 선행 필요 — 담당자: 폐수 조헌덕 / 부산물 이영진 / 김천 이홍란\n'+
+'E-A 매입세금계산서 → 전자세금계산서 전표입력\n'+
+'→ 해당 금액 선택 후 계정코드: (원)수도광열비-광열비\n'+
+'· 적요 (예) 20XX년 ~월 폐수 or 부산물 utility 사용료_PJT(구미/증설/김천)\n'+
+'· 코스트센터 — 해당 PJT\n'+
+'· 예산PRG — 일반예산-정산\n'+
+'· 비목 — 06 전력비-정산'+
+'</div></div></div>'+
+
+'</div>';
+}
+
 function render(){
   var el=document.getElementById("ct");
   var sq=srch.toLowerCase(),f=flt;
   if(f==="전표요약"&&!sq){renderSummary();return;}
   if(f==="숙소현황"){renderSookso();return;}
   if(f==="예산"){renderBudget(sq);return;}
+  if(f==="전표작성"){renderGuide();return;}
   if(f==="연락처"&&!sq){
     var h='<div class="cw"><h3>&#128222; 주요 연락처</h3>';
     for(var i=0;i<CONTACTS.length;i++){

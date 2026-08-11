@@ -742,6 +742,48 @@ function renderGuide(){
 '· 비목 — 06 전력비-정산'+
 '</div></div></div>'+
 
+'<div class="card" style="margin-bottom:14px">'+
+'<div class="card-h" onclick="tog(\'g4\')" style="cursor:pointer">'+
+'<div class="card-l"><span class="badge" style="background:#7c5cbf">약품매입</span>'+
+'<span class="ctitle">④ 약품전표 입력 매뉴얼 (매입 예시)</span></div>'+
+'<span class="arr" id="ag4">▶</span></div>'+
+'<div class="card-b" id="g4">'+
+'<div class="desc">'+
+'E-A 매입세금계산서 → 전자세금계산서 전표입력 → 해당 계산서 선택\n'+
+'· 거래계정 — 저장품 매입(과세)\n'+
+'· 지급조건 — 익월말일\n'+
+'· 비목코드 — 99 / 비목명칭 — 계약 외비정산\n'+
+'· 사업장 — 리뉴어스 주식회사\n'+
+'· 처리일자 = 작성일자 = 증빙일자 (계산서 날짜 기준)'+
+'</div>'+
+'<div style="overflow-x:auto;margin-top:12px">'+
+'<table style="width:100%;border-collapse:collapse;font-size:11px;min-width:700px">'+
+'<thead><tr style="background:var(--bg3)">'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">전표번호</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">PJT</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">프로젝트명</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">처리일자</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">업체명</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">은행</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">계좌번호</th>'+
+'<th style="padding:6px 8px;border:1px solid var(--br);white-space:nowrap;text-align:left">거래계정</th>'+
+'</tr></thead>'+
+'<tbody>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005196</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-03</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">에스엔에프코리아</td><td style="padding:5px 8px;border:1px solid var(--br)">하나</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">41422009904</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr style="background:var(--bg3)"><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005201</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1004</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)김천폐수</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-15</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">엔씨에이취코리아(주)</td><td style="padding:5px 8px;border:1px solid var(--br)">하나</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">21291000210304</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005202</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1004</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)김천폐수</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-15</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">엔씨에이취코리아(주)</td><td style="padding:5px 8px;border:1px solid var(--br)">하나</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">21291000210304</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr style="background:var(--bg3)"><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005195</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-16</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">주식회사 티켐</td><td style="padding:5px 8px;border:1px solid var(--br)">기업</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">18512671604018</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005419</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1002</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">대성엠디아이(주)</td><td style="padding:5px 8px;border:1px solid var(--br)">우리</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">1005700965123</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr style="background:var(--bg3)"><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005193</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1002</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">주식회사 티켐</td><td style="padding:5px 8px;border:1px solid var(--br)">기업</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">18512671604018</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005197</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">대성엠디아이(주)</td><td style="padding:5px 8px;border:1px solid var(--br)">우리</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">1005700965123</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr style="background:var(--bg3)"><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005198</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(주)오미아코리아</td><td style="padding:5px 8px;border:1px solid var(--br)">신한</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">140004171681</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005199</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(주)오미아코리아</td><td style="padding:5px 8px;border:1px solid var(--br)">신한</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">140004171681</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr style="background:var(--bg3)"><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005200</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1003</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수(증설)</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-20</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">대성엠디아이(주)</td><td style="padding:5px 8px;border:1px solid var(--br)">우리</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">1005700965123</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'<tr><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace">7000005192</td><td style="padding:5px 8px;border:1px solid var(--br)">BBW1002</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">(민간)구미폐수</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">2026-07-22</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">주식회사 티켐</td><td style="padding:5px 8px;border:1px solid var(--br)">기업</td><td style="padding:5px 8px;border:1px solid var(--br);font-family:monospace;white-space:nowrap">18512671604018</td><td style="padding:5px 8px;border:1px solid var(--br);white-space:nowrap">저장품 매입(과세)</td></tr>'+
+'</tbody></table></div>'+
+'<div style="margin-top:8px;font-size:10px;color:var(--tx3)">※ 비목코드 99 / 비목명칭: 계약 외비정산 / 사업장: 리뉴어스 주식회사 — 모든 행 공통</div>'+
+'</div></div>'+
+
 '</div>';
 }
 

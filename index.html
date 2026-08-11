@@ -121,6 +121,24 @@ body.edit-mode .del-chk{display:inline-block}
   .modal textarea{font-size:13px;min-height:260px}
   .mgrid{grid-template-columns:1fr 1fr;gap:0 24px}
 }
+/* 전표 양식 */
+.form-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.form-tab{padding:6px 13px;border:1px solid var(--br);border-radius:16px;font-size:12px;cursor:pointer;background:var(--bg2);color:var(--tx);font-weight:600}
+.form-tab.on{background:var(--pt);color:#18181b;border-color:var(--pt)}
+.fgrid{display:grid;grid-template-columns:1fr;border-top:1px solid var(--br);border-left:1px solid var(--br);margin-bottom:1px}
+.ff{padding:7px 10px;border-bottom:1px solid var(--br);border-right:1px solid var(--br);min-height:46px}
+.ff-lbl{font-size:10px;color:var(--tx3);font-weight:700;margin-bottom:3px}
+.ff-val{font-size:12px;color:var(--tx);word-break:break-all;line-height:1.4}
+.ff-inp{width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;color:var(--tx);font-size:12px;padding:2px 0;font-family:inherit;outline:none}
+.ff-inp::placeholder{color:var(--tx3);opacity:0.6}
+.ftbl-wrap{overflow-x:auto;margin-top:10px;margin-bottom:20px}
+.ftbl{width:100%;border-collapse:collapse;min-width:700px;font-size:10px}
+.ftbl th{padding:5px 7px;background:#2d3748;color:#e5e7eb;font-weight:700;border:1px solid #4a5568;white-space:nowrap;text-align:left}
+.ftbl td{padding:4px 7px;border:1px solid var(--br);vertical-align:middle;white-space:nowrap}
+.ftbl td.v{background:rgba(245,158,11,0.04)}
+.ftbl td input{width:60px;min-width:40px;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:0}
+.form-sec{font-size:11px;font-weight:700;color:var(--tx3);padding:12px 2px 5px;letter-spacing:0.03em;border-bottom:1px solid var(--br);margin-bottom:1px}
+@media(min-width:768px){.fgrid{grid-template-columns:repeat(3,1fr)}}
 .bok{background:var(--pt);color:#18181b}
 .bno{background:var(--bg3);color:var(--tx)}
 .bdel{background:rgba(239,68,68,0.2);color:var(--redt)}
@@ -199,6 +217,7 @@ mark{background:rgba(245,158,11,0.3);color:var(--pt);border-radius:2px}
   <button class="chip" data-f="숙소현황">🏠숙소현황</button>
   <button class="chip" data-f="예산">💰예산</button>
   <button class="chip" data-f="전표작성">📝 전표작성요령</button>
+  <button class="chip" data-f="전표양식">📋 전표양식</button>
 </div>
 <div id="banner"><div class="banner"><b>📅 오늘(06월 21일) 할 일 3건</b><small>위 탭에서 확인</small></div></div>
 <div class="drop-ov" id="dropOv">
@@ -365,7 +384,7 @@ function renderSummary(){
   }
   el.innerHTML=html;
 }
-var flt="all",srch="",omap={},emode=false,eidx=-1,dtgt=-1,selSet={};
+var flt="all",srch="",omap={},emode=false,eidx=-1,dtgt=-1,selSet={},formType="tax";
 var DONE={};
 (function(){try{var s=localStorage.getItem('acct_chk');DONE=s?JSON.parse(s):{}}catch(e){DONE={}}})();
 function saveDone(){try{localStorage.setItem('acct_chk',JSON.stringify(DONE))}catch(e){}}
@@ -687,6 +706,97 @@ function renderBudget(sq){
   }
 }
 
+function switchForm(t){formType=t;renderForms();}
+function renderForms(){
+  var el=document.getElementById("ct");
+  function ff(lb,val,fx){
+    if(!lb)return'<div class="ff" style="background:var(--bg3)"></div>';
+    var bg=fx?' style="background:var(--bg3)"':'';
+    var c=fx?'<div class="ff-val">'+(val||'—')+'</div>':'<input class="ff-inp" value="'+(val||'')+'" placeholder="입력">';
+    return'<div class="ff"'+bg+'><div class="ff-lbl">'+lb+'</div>'+c+'</div>';
+  }
+  function fg(a){return'<div class="fgrid">'+a.join('')+'</div>';}
+  function tbl(cols,rows){
+    return'<div class="ftbl-wrap"><table class="ftbl"><thead><tr>'+
+      cols.map(function(c){return'<th>'+c+'</th>';}).join('')+
+      '</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+  }
+  function tr(cells){
+    var inp='style="width:70px;min-width:40px;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:0"';
+    return'<tr>'+cells.map(function(c){
+      return c.charAt(0)==='_'?'<td class="v"><input '+inp+' placeholder="'+c.slice(1)+'"></td>':'<td>'+c+'</td>';
+    }).join('')+'</tr>';
+  }
+
+  var STD=['계정코드','계정명','적요','CC코드','CC명','예산PRG','예산PRG명','비목번호','계약비목','세금코드명','공급가액','부가세액'];
+  var VROW=['_계정코드','_계정명','_적요','_CC코드','_CC명','_예산PRG','_예산PRG명','_비목번호','_계약비목'];
+
+  var D={
+    tax:{t:'전자세금계산서전표',b:
+      fg([ff('전표구분','일반매입',1),ff('전기일자','',0),ff('증빙일자','',0)])+
+      fg([ff('총금액','',0),ff('총공급가액','',0),ff('총부가세액','',0)])+
+      fg([ff('세금코드','VB 매입-세금계산서-일반-전자증빙(10%)',1),ff('지급계정','미지급금-일반',1),ff('부가세사업장','리뉴어스 주식회사(1231)',1)])+
+      fg([ff('구매처','',0),ff('은행명','',0),ff('계좌번호','',0)])+
+      fg([ff('귀속부서','',0),ff('지급예정일','',0),ff('')])+
+      tbl(STD,[tr(VROW.concat(['VB 매입-세금계산서-일반-전자증빙','_공급가액','_부가세액']))])},
+    normal:{t:'일반전표',b:
+      fg([ff('전표구분','일반경비',1),ff('전기일자','',0),ff('증빙일자','',0)])+
+      fg([ff('총금액','',0),ff('총공급가액','',0),ff('총부가세액','0 원',1)])+
+      fg([ff('세금코드','없음',1),ff('지급계정','미지급금-일반',1),ff('부가세사업장','리뉴어스 주식회사(1231)',1)])+
+      fg([ff('구매처','',0),ff('은행명','',0),ff('계좌번호','',0)])+
+      fg([ff('귀속부서','',0),ff('지급보류','',0),ff('지급예정일','',0)])+
+      tbl(STD,[tr(VROW.concat(['없음','_공급가액','0']))])},
+    jiro:{t:'지로전표',b:
+      fg([ff('전표번호유형','전자지로',1),ff('전기일자','',0),ff('증빙일자','',0)])+
+      fg([ff('총금액','',0),ff('총공급가액','',0),ff('총부가세액','',0)])+
+      fg([ff('전자납부번호','',0),ff('납기일자',  '',0),ff('구매처 사업자번호','',0)])+
+      fg([ff('지로발급기관','',0),ff('지로유형','전화/전기/TV',0),ff('귀속부서','',0)])+
+      fg([ff('세금코드','VI 매입-세금계산서-지로-전자증빙(10%)',1),ff('지급계정','미지급금-일반',1),ff('부가세사업장','리뉴어스 주식회사(1231)',1)])+
+      fg([ff('구매처','',0),ff('지급조건','지정일 지급',1),ff('지급예정일','',0)])+
+      tbl(STD,[tr(VROW.concat(['VI 매입-세금계산서-지로-전자증빙','_공급가액','_부가세액']))])},
+    silmool:{t:'실물 세금계산서전표',b:
+      fg([ff('전표구분','일반매입',1),ff('전기일자','',0),ff('증빙일자','',0)])+
+      fg([ff('총금액','',0),ff('총공급가액','',0),ff('총부가세액','',0)])+
+      fg([ff('부가세사업장','리뉴어스 주식회사(1231)',1),ff('지급계정','미지급금-일반',1),ff('세금코드','VI 매입-세금계산서-지로-전자증빙(10%)',1)])+
+      fg([ff('구매처','',0),ff('은행명','',0),ff('계좌번호','',0)])+
+      fg([ff('귀속부서','',0),ff('지급보류','',0),ff('지급예정일','',0)])+
+      tbl(STD,[tr(VROW.concat(['VI 매입-세금계산서-지로-전자증빙','_공급가액','_부가세액']))])},
+    chaekwon:{t:'채권전표 (진행매출)',b:
+      fg([ff('전표유형','진행매출',1),ff('전기일자','',0),ff('증빙일자','',0)])+
+      fg([ff('총금액','',0),ff('총공급가액','',0),ff('총부가세액','0 원',1)])+
+      fg([ff('세금코드','없음',1),ff('차변계정','외상매출금-진행매출',1),ff('부가세사업장','리뉴어스 주식회사(1231)',1)])+
+      fg([ff('고객사','',0),ff('세금계산서 발행여부','미발행',1),ff('만기일','',0)])+
+      fg([ff('비고','',0),ff('마이너스 전기','□',1),ff('귀속부서','',0)])+
+      tbl(['계정코드','계정명','적요','CC코드','CC명','예산PRG','예산PRG명','비목번호','계약비목','공급가액','부가세액'],
+        [tr(['_계정코드','_계정명','_적요','_CC코드','_CC명','_예산PRG','_예산PRG명','','','_공급가액','0'])])},
+    arap:{t:'기타전표 — AR/AP 반제',b:
+      '<div class="form-sec">● 기본정보</div>'+
+      fg([ff('증빙일자','',0),ff('전기일자','',0),ff('귀속부서','',0)])+
+      fg([ff('적요','',0),ff('전표번호','(자동발급)',1),ff('')])+
+      '<div class="form-sec">● 반제내역</div>'+
+      tbl(['대차','전표번호','전표유형','계정코드','계정명','발생액','잔액','차변액','대변액','CC코드','CC명','거래처명','적요'],
+        [tr(['대변','_전표번호','ZM','_계정코드','_계정명','_발생액','_잔액','0','_대변액','_CC코드','_CC명','_거래처명','_적요']),
+         tr(['차변','','','_계정코드','_계정명','0','0','_차변액','0','_CC코드','_CC명','','_적요'])])},
+    jeondo:{t:'기타전표 — 전도금 입금/정산',b:
+      '<div class="form-sec">● 기본정보</div>'+
+      fg([ff('증빙일자','',0),ff('전기일자','',0),ff('귀속부서','',0)])+
+      fg([ff('통화','KRW',1),ff('지급계정','보통예금-전도금',1),ff('적요','',0)])+
+      '<div class="form-sec">● 반제대상 미결내역</div>'+
+      tbl(['전표번호','대차','전표유형','증빙일자','금액','거래처명','계정명','CC코드','CC명','적요'],
+        [tr(['_전표번호','H','W1/W3','_증빙일자','_금액','_거래처명','미지급금-일반','_CC코드','_CC명','_적요'])])}
+  };
+
+  var tabs=[{k:'tax',l:'세금계산서'},{k:'normal',l:'일반전표'},{k:'jiro',l:'지로'},{k:'silmool',l:'실물계산서'},{k:'chaekwon',l:'채권전표'},{k:'arap',l:'AR/AP반제'},{k:'jeondo',l:'전도금'}];
+  var h='<div class="cw" style="padding:12px 0"><h3 style="margin:0 0 12px;font-size:17px">📋 전표 양식</h3>';
+  h+='<div style="font-size:10px;color:var(--tx3);margin-bottom:8px">회색 배경 = 자동입력(고정값) · 흰 칸 = 직접 입력</div>';
+  h+='<div class="form-tabs">';
+  for(var i=0;i<tabs.length;i++)h+='<button class="form-tab'+(formType===tabs[i].k?' on':'')+'" onclick="switchForm(\''+tabs[i].k+'\')">'+ tabs[i].l+'</button>';
+  h+='</div>';
+  var d=D[formType]||D.tax;
+  h+='<div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-weight:700">▶ '+d.t+'</div>'+d.b+'</div>';
+  el.innerHTML=h;
+}
+
 function renderGuide(){
   var el=document.getElementById("ct");
   el.innerHTML='<div class="cw" style="padding:12px 0">'+
@@ -794,6 +904,7 @@ function render(){
   if(f==="숙소현황"){renderSookso();return;}
   if(f==="예산"){renderBudget(sq);return;}
   if(f==="전표작성"){renderGuide();return;}
+  if(f==="전표양식"){renderForms();return;}
   if(f==="연락처"&&!sq){
     var h='<div class="cw"><h3>&#128222; 주요 연락처</h3>';
     for(var i=0;i<CONTACTS.length;i++){

@@ -872,17 +872,34 @@ function fOnJpType(){
   else if(tc){tc.disabled=false;}
 }
 function fSaveForm(){
-  var titleEl=document.getElementById('f-save-title');
-  var title=(titleEl?titleEl.value:'').trim();
-  if(!title){alert('저장 제목을 입력하세요');return;}
   var ids=['f-date1','f-date2','f-duedate','f-expire','f-taxcode','f-supply','f-vat','f-buyer','f-dept','f-deptn','f-hold','f-payacct','f-jptype','f-jptype1','f-jptype2','f-ca','f-acct-code','f-acct-name','f-jeokyo','f-cc','f-ccn','f-prg','f-bikmok','f-taxnm','f-bigofield','f-jeokyo-header','f-arap-jno','f-arap-bal','f-arap-rem','f-arap-dae','f-arap-vendor','f-jd-jno','f-date3','f-jd-vendor','f-jiro-num','f-napki','f-sbn','f-jiro-issuer','f-jiro-type'];
   var fields={};
   for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)fields[ids[i]]=el.value;}
+  var jeokyo=(fields['f-jeokyo']||fields['f-jeokyo-header']||'').trim();
+  var dt=new Date();
+  var title=jeokyo||((dt.getMonth()+1)+'/'+dt.getDate()+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2)));
   SAVED_FORMS.unshift({type:formType,kita:kitaType,title:title,ts:Date.now(),fields:fields});
   jepyoSave();
-  if(titleEl)titleEl.value='';
   var sq=document.getElementById('f-saved-search');
   renderSavedList(sq?sq.value:'');
+}
+function fExportForms(){
+  var json=JSON.stringify(SAVED_FORMS,null,2);
+  var w=window.open('','_blank','width=600,height=500');
+  if(w){w.document.write('<pre style="font-size:12px;white-space:pre-wrap;word-break:break-all">'+json.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</pre>');w.document.title='전표 백업 데이터';}
+}
+function fImportForms(){
+  var raw=prompt('백업 JSON을 붙여넣으세요:');
+  if(!raw)return;
+  try{
+    var arr=JSON.parse(raw);
+    if(!Array.isArray(arr))throw new Error();
+    SAVED_FORMS=arr.concat(SAVED_FORMS);
+    jepyoSave();
+    var sq=document.getElementById('f-saved-search');
+    renderSavedList(sq?sq.value:'');
+    alert(arr.length+'건 불러왔습니다.');
+  }catch(e){alert('올바른 형식이 아닙니다.');}
 }
 function fLoadForm(idx){
   var e=SAVED_FORMS[idx];if(!e)return;
@@ -912,21 +929,37 @@ function fDeleteForm(idx){
 function renderSavedList(q){
   var el=document.getElementById('f-saved-list');if(!el)return;
   var items=SAVED_FORMS;
-  if(q){var lq=q.toLowerCase();items=items.filter(function(e){return e.title.toLowerCase().indexOf(lq)>=0;});}
+  if(q){var lq=q.toLowerCase();items=items.filter(function(e){
+    var t=(e.title||'').toLowerCase();
+    var j=((e.fields&&(e.fields['f-jeokyo']||e.fields['f-jeokyo-header']))||'').toLowerCase();
+    return t.indexOf(lq)>=0||j.indexOf(lq)>=0;
+  });}
   var TN={tax:'세금계산서',normal:'일반전표',jiro:'지로',silmool:'실물계산서',chaekwon:'채권전표',kita:'기타전표'};
+  var ORDER=['normal','silmool','tax','jiro','chaekwon','kita'];
   if(!items.length){el.innerHTML='<div style="color:var(--tx3);font-size:12px;padding:10px;text-align:center">저장된 전표 없음</div>';return;}
-  el.innerHTML=items.map(function(e){
-    var ri=SAVED_FORMS.indexOf(e);
-    var dt=new Date(e.ts);
-    var ds=(dt.getMonth()+1)+'/'+(dt.getDate())+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2));
-    return'<div style="display:flex;align-items:center;gap:6px;padding:7px 10px;border-bottom:1px solid var(--br)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'">'+
-      '<div style="flex:1;cursor:pointer" onclick="fLoadForm('+ri+')">'+
-      '<div style="font-size:12px;font-weight:600;color:var(--tx)">'+String(e.title).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>'+
-      '<div style="font-size:10px;color:var(--tx3)">'+(TN[e.type]||e.type)+(e.kita&&e.type==='kita'?' · '+e.kita:'')+' · '+ds+'</div>'+
-      '</div>'+
-      '<button onclick="fDeleteForm('+ri+')" style="background:rgba(239,68,68,0.15);color:var(--redt);border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;flex-shrink:0">삭제</button>'+
-    '</div>';
-  }).join('');
+  var groups={};
+  items.forEach(function(e){var t=e.type||'normal';if(!groups[t])groups[t]=[];groups[t].push(e);});
+  var h='';
+  ORDER.forEach(function(type){
+    if(!groups[type]||!groups[type].length)return;
+    h+='<div style="padding:5px 10px 4px;font-size:10px;font-weight:700;color:var(--pt);background:rgba(245,158,11,0.08);border-bottom:1px solid var(--br);letter-spacing:0.03em">'+
+      '▸ '+(TN[type]||type)+' ('+groups[type].length+'건)</div>';
+    groups[type].forEach(function(e){
+      var ri=SAVED_FORMS.indexOf(e);
+      var dt=new Date(e.ts);
+      var ds=(dt.getMonth()+1)+'/'+(dt.getDate())+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2));
+      var ttl=String(e.title||ds).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      var sub=ds+(e.kita&&e.type==='kita'?' · '+e.kita:'');
+      h+='<div style="display:flex;align-items:center;gap:6px;padding:7px 10px 7px 16px;border-bottom:1px solid var(--br)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'">'+
+        '<div style="flex:1;cursor:pointer;min-width:0" onclick="fLoadForm('+ri+')">'+
+        '<div style="font-size:12px;font-weight:700;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+ttl+'</div>'+
+        '<div style="font-size:10px;color:var(--tx3);margin-top:1px">'+sub+'</div>'+
+        '</div>'+
+        '<button onclick="fDeleteForm('+ri+')" style="background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;flex-shrink:0">삭제</button>'+
+      '</div>';
+    });
+  });
+  el.innerHTML=h;
 }
 var kitaType='arap';
 function switchKita(t){kitaType=t;renderForms();}
@@ -1097,16 +1130,17 @@ function renderForms(){
   h+='<div style="background:var(--bg3);border-radius:10px;padding:10px 12px;margin-bottom:14px">';
   h+='<div style="font-size:11px;font-weight:700;color:var(--pt);margin-bottom:8px">📁 저장된 전표 ('+SAVED_FORMS.length+'건)</div>';
   h+='<input id="f-saved-search" type="text" placeholder="저장된 전표 검색..." style="width:100%;background:var(--bg2);border:1px solid var(--br);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--tx);outline:none;box-sizing:border-box;margin-bottom:8px" oninput="renderSavedList(this.value)">';
-  h+='<div id="f-saved-list" style="max-height:130px;overflow-y:auto;background:var(--bg2);border-radius:6px;border:1px solid var(--br)"></div>';
+  h+='<div id="f-saved-list" style="max-height:280px;overflow-y:auto;background:var(--bg2);border-radius:6px;border:1px solid var(--br)"></div>';
   h+='</div>';
   h+='<div class="form-tabs">';
   for(var i=0;i<tabs.length;i++)h+='<button class="form-tab'+(formType===tabs[i].k?' on':'')+'" onclick="switchForm(\''+tabs[i].k+'\')">'+tabs[i].l+'</button>';
   h+='</div>';
   h+='<div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-weight:700">▶ '+(FNAMES[formType]||formType)+'</div>';
   h+=FBODY[formType]||FBODY.tax;
-  h+='<div style="margin-top:14px;display:flex;gap:8px;align-items:center">';
-  h+='<input id="f-save-title" type="text" placeholder="저장 제목 (예: 7월 약품비 구미)" style="flex:1;background:var(--bg2);border:1px solid var(--br);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--tx);outline:none">';
-  h+='<button onclick="fSaveForm()" style="background:var(--pt);color:#18181b;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">💾 저장</button>';
+  h+='<div style="margin-top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">';
+  h+='<button onclick="fSaveForm()" style="background:var(--pt);color:#18181b;border:none;border-radius:8px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">💾 저장 (적요→제목 자동)</button>';
+  h+='<button onclick="fExportForms()" style="background:var(--bg3);color:var(--tx);border:none;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">📤 백업</button>';
+  h+='<button onclick="fImportForms()" style="background:var(--bg3);color:var(--tx);border:none;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">📥 복원</button>';
   h+='</div>';
   h+='</div>';
   el.innerHTML=h;

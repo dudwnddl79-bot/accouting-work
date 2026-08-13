@@ -794,23 +794,30 @@ document.addEventListener('click',function(e){
 },{passive:true});
 
 function calcTotals(){
-  var sup=parseFloat((document.getElementById('f-supply')||{}).value)||0;
-  var vat=parseFloat((document.getElementById('f-vat')||{}).value)||0;
+  var totalSup=0,totalVat=0;
+  for(var _ri=0;_ri<_rowCount;_ri++){
+    var _se=document.getElementById('f-supply-'+_ri);
+    var _ve=document.getElementById('f-vat-'+_ri);
+    if(!_se)continue;
+    totalSup+=parseFloat(_se.value)||0;
+    totalVat+=parseFloat(_ve?_ve.value:0)||0;
+  }
   var el;
-  if(el=document.getElementById('f-total'))el.value=sup+vat||'';
-  if(el=document.getElementById('f-supply-total'))el.value=sup||'';
-  if(el=document.getElementById('f-vat-total'))el.value=vat||'';
+  if(el=document.getElementById('f-total'))el.value=(totalSup+totalVat)||'';
+  if(el=document.getElementById('f-supply-total'))el.value=totalSup||'';
+  if(el=document.getElementById('f-vat-total'))el.value=totalVat||'';
 }
 
-var _fAcctMatches=[];
-function fAcctSearch(q){
+var _fAcctMatches=[],_acctRowIdx=0;
+function fAcctSearch(q,rowIdx){
+  _acctRowIdx=rowIdx===undefined?0:rowIdx;
   var p=document.getElementById('_ap');
   if(!q.trim()){if(p)p.style.display='none';_fAcctMatches=[];return;}
   var lq=q.toLowerCase();
   _fAcctMatches=ACCT_LIST.filter(function(a){return a.c.indexOf(q)>=0||a.n.toLowerCase().indexOf(lq)>=0;}).slice(0,20);
   if(!_fAcctMatches.length){if(p)p.style.display='none';return;}
   if(!p){p=document.createElement('div');p.id='_ap';document.body.appendChild(p);}
-  var inp=document.getElementById('f-acct-in');
+  var inp=document.getElementById('f-acct-in-'+_acctRowIdx);
   var r=inp?inp.getBoundingClientRect():{left:10,bottom:60};
   var lx=Math.max(4,Math.min(r.left,window.innerWidth-308));
   p.style.cssText='position:fixed;left:'+lx+'px;top:'+(r.bottom+3)+'px;z-index:9998;background:var(--bg2);border:1px solid var(--br);border-radius:10px;width:304px;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.7)';
@@ -824,9 +831,9 @@ function fAcctSearch(q){
 }
 function fAcctSel(i){
   var a=_fAcctMatches[i];if(!a)return;
-  var inp=document.getElementById('f-acct-in');
-  var code=document.getElementById('f-acct-code');
-  var nm=document.getElementById('f-acct-name');
+  var inp=document.getElementById('f-acct-in-'+_acctRowIdx);
+  var code=document.getElementById('f-acct-code-'+_acctRowIdx);
+  var nm=document.getElementById('f-acct-name-'+_acctRowIdx);
   if(inp)inp.value=a.c+' | '+a.n;
   if(code)code.value=a.c;
   if(nm)nm.value=a.n;
@@ -835,24 +842,24 @@ function fAcctSel(i){
 document.addEventListener('click',function(e){
   var p=document.getElementById('_ap');
   if(p&&p.style.display!=='none'&&!p.contains(e.target)){
-    var inp=document.getElementById('f-acct-in');
+    var inp=document.getElementById('f-acct-in-'+_acctRowIdx);
     if(!inp||e.target!==inp)p.style.display='none';
   }
 },{passive:true});
-function fOnCC(){
-  var sel=document.getElementById('f-cc');if(!sel)return;
+function fOnCC(i){
+  var sel=document.getElementById('f-cc-'+i);if(!sel)return;
   var cc=sel.value;
-  var ccn=document.getElementById('f-ccn');if(ccn)ccn.value=CC_MAP[cc]||'';
-  var bm=document.getElementById('f-bikmok');if(!bm)return;
+  var ccn=document.getElementById('f-ccn-'+i);if(ccn)ccn.value=CC_MAP[cc]||'';
+  var bm=document.getElementById('f-bikmok-'+i);if(!bm)return;
   var list=CC_BIKMOK[cc]||[];
   bm.innerHTML='<option value="">선택</option>'+list.map(function(v){return'<option>'+v+'</option>';}).join('');
 }
-function fCalcVat(){
+function fCalcVat(i){
   var tc=(document.getElementById('f-taxcode')||{}).value||'';
   var is0=!tc||tc==='없음'||tc.indexOf('(0%)')>=0;
-  var vatEl=document.getElementById('f-vat');
+  var vatEl=document.getElementById('f-vat-'+i);
   if(vatEl){
-    var sup=parseFloat((document.getElementById('f-supply')||{}).value)||0;
+    var sup=parseFloat((document.getElementById('f-supply-'+i)||{}).value)||0;
     if(!is0&&tc){vatEl.value=Math.round(sup*.1);vatEl.readOnly=true;vatEl.style.opacity='0.6';}
     else{if(vatEl.readOnly){vatEl.value='';}vatEl.readOnly=false;vatEl.style.opacity='1';}
   }
@@ -860,14 +867,38 @@ function fCalcVat(){
 }
 function fOnTaxCode(){
   var tc=(document.getElementById('f-taxcode')||{}).value||'';
-  var tn=document.getElementById('f-taxnm');
-  if(tn)tn.value=(!tc||tc==='없음')?'비과세':tc.split('-')[0]||tc;
-  fCalcVat();
+  var tnVal=(!tc||tc==='없음')?'비과세':tc.split('-')[0]||tc;
+  var is0=!tc||tc==='없음'||tc.indexOf('(0%)')>=0;
+  for(var _ri=0;_ri<_rowCount;_ri++){
+    var tn=document.getElementById('f-taxnm-'+_ri);if(tn)tn.value=tnVal;
+    var vatEl=document.getElementById('f-vat-'+_ri);
+    if(vatEl){
+      var sup=parseFloat((document.getElementById('f-supply-'+_ri)||{}).value)||0;
+      if(!is0&&tc){vatEl.value=Math.round(sup*.1);vatEl.readOnly=true;vatEl.style.opacity='0.6';}
+      else{if(vatEl.readOnly){vatEl.value='';}vatEl.readOnly=false;vatEl.style.opacity='1';}
+    }
+  }
+  calcTotals();
 }
 function fOnDept(){
   var v=(document.getElementById('f-dept')||{}).value||'';
   var n=document.getElementById('f-deptn');
   if(n)n.value=CC_MAP[v]||'';
+}
+var _rowCount=1;
+function addRow(){
+  var tbody=document.getElementById('f-stdtbl-tbody')||document.getElementById('f-cktbl-tbody');
+  if(!tbody||!window._makeRow)return;
+  var i=_rowCount++;
+  var tr=document.createElement('tr');
+  tr.id='f-row-'+i;
+  tr.innerHTML=window._makeRow(i);
+  tbody.appendChild(tr);
+}
+function delRow(i){
+  var tr=document.getElementById('f-row-'+i);
+  if(tr)tr.parentNode.removeChild(tr);
+  calcTotals();
 }
 function fOnJpType(){
   var jt=document.getElementById('f-jptype');if(!jt)return;
@@ -885,10 +916,18 @@ function fOnJpType(){
   else if(tc){tc.disabled=false;}
 }
 function fSaveForm(){
-  var ids=['f-date1','f-date2','f-duedate','f-expire','f-taxcode','f-supply','f-vat','f-buyer','f-dept','f-deptn','f-hold','f-payacct','f-jptype','f-jptype1','f-jptype2','f-ca','f-acct-code','f-acct-name','f-jeokyo','f-cc','f-ccn','f-prg','f-bikmok','f-taxnm','f-bigofield','f-jeokyo-header','f-arap-jno','f-arap-bal','f-arap-rem','f-arap-dae','f-arap-vendor','f-jd-jno','f-date3','f-jd-vendor','f-jiro-num','f-napki','f-sbn','f-jiro-issuer','f-jiro-type'];
+  var ids=['f-date1','f-date2','f-duedate','f-expire','f-taxcode','f-buyer','f-dept','f-deptn','f-hold','f-payacct','f-jptype','f-jptype1','f-jptype2','f-ca','f-bigofield','f-jeokyo-header','f-arap-jno','f-arap-bal','f-arap-rem','f-arap-dae','f-arap-vendor','f-arap-cc','f-arap-ccn','f-arap-jeokyo','f-jd-jno','f-date3','f-jd-vendor','f-jd-supply','f-jd-cc','f-jd-ccn','f-jd-jeokyo','f-jiro-num','f-napki','f-sbn','f-jiro-issuer','f-jiro-type'];
   var fields={};
   for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)fields[ids[i]]=el.value;}
-  var jeokyo=(fields['f-jeokyo']||fields['f-jeokyo-header']||'').trim();
+  var rIds=['f-acct-code','f-acct-name','f-jeokyo','f-cc','f-ccn','f-prg','f-bikmok','f-taxnm','f-supply','f-vat'];
+  var rows=[];
+  for(var ri=0;ri<_rowCount;ri++){
+    if(!document.getElementById('f-supply-'+ri))continue;
+    var r={};for(var j=0;j<rIds.length;j++){var el=document.getElementById(rIds[j]+'-'+ri);if(el)r[rIds[j]]=el.value;}
+    rows.push(r);
+  }
+  fields._rows=rows;
+  var jeokyo=(fields['f-jeokyo-header']||(rows[0]&&rows[0]['f-jeokyo'])||'').trim();
   var dt=new Date();
   var title=jeokyo||((dt.getMonth()+1)+'/'+dt.getDate()+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2)));
   SAVED_FORMS.unshift({type:formType,kita:kitaType,title:title,ts:Date.now(),fields:fields});
@@ -926,12 +965,27 @@ function fLoadForm(idx){
 }
 function fLoadFormFields(e){
   var fields=e.fields||{};
-  for(var id in fields){var el=document.getElementById(id);if(el)el.value=fields[id];}
-  var code=document.getElementById('f-acct-code');
-  var nm=document.getElementById('f-acct-name');
-  var inp=document.getElementById('f-acct-in');
-  if(inp&&code&&code.value)inp.value=code.value+(nm&&nm.value?' | '+nm.value:'');
-  fOnCC();fOnTaxCode();fOnDept();
+  for(var id in fields){if(id==='_rows')continue;var el=document.getElementById(id);if(el)el.value=fields[id];}
+  var rows=fields._rows;
+  // backward compat: old saves had flat f-supply, f-cc etc
+  if(!rows){
+    var oldKeys=['f-acct-code','f-acct-name','f-jeokyo','f-cc','f-ccn','f-prg','f-bikmok','f-taxnm','f-supply','f-vat'];
+    var r0={};var hasAny=false;
+    for(var ok=0;ok<oldKeys.length;ok++){if(fields[oldKeys[ok]]!==undefined){r0[oldKeys[ok]]=fields[oldKeys[ok]];hasAny=true;}}
+    rows=hasAny?[r0]:[];
+  }
+  while(_rowCount<rows.length)addRow();
+  var rIds=['f-acct-code','f-acct-name','f-jeokyo','f-cc','f-ccn','f-prg','f-bikmok','f-taxnm','f-supply','f-vat'];
+  for(var ri=0;ri<rows.length;ri++){
+    var r=rows[ri];
+    for(var j=0;j<rIds.length;j++){var el=document.getElementById(rIds[j]+'-'+ri);if(el&&r[rIds[j]]!==undefined)el.value=r[rIds[j]];}
+    var inp=document.getElementById('f-acct-in-'+ri);
+    var code=document.getElementById('f-acct-code-'+ri);
+    var nm=document.getElementById('f-acct-name-'+ri);
+    if(inp&&code&&code.value)inp.value=code.value+(nm&&nm.value?' | '+nm.value:'');
+    fOnCC(ri);
+  }
+  fOnTaxCode();fOnDept();
 }
 function fDeleteForm(idx){
   if(!confirm('삭제할까요?'))return;
@@ -978,6 +1032,7 @@ var kitaType='arap';
 function switchKita(t){kitaType=t;renderForms();}
 function switchForm(t){formType=t;renderForms();}
 function renderForms(){
+  _rowCount=1;
   var el=document.getElementById('ct');
   var ist='style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0"';
   var iss='style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg2);font-size:10px;color:#f4f4f5;font-family:inherit;outline:none;padding:1px 2px;-webkit-appearance:none;font-weight:700"';
@@ -1012,36 +1067,48 @@ function renderForms(){
   var caOpts='<option value="">선택</option><option>외상매출금-원화</option><option>미수금-원화</option><option>미수금-공동도급</option>';
   var totals=FG([IS('총금액','f-total','',2),IS('총공급가액','f-supply-total','',2),IS('총부가세액','f-vat-total','',2)]);
   var deptBlock=FG([SS('귀속부서','f-dept',deptOpts,'fOnDept()'),IS('귀속부서명','f-deptn','',2),IS('','','',0)]);
-  var acctW='<input id="f-acct-in" type="text" placeholder="계정 코드/이름 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value)" autocomplete="off">'+
-    '<div style="display:flex;gap:3px;margin-top:4px">'+
-    '<input id="f-acct-code" type="text" placeholder="코드" style="width:44%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;font-weight:700" readonly>'+
-    '<input id="f-acct-name" type="text" placeholder="계정명" style="width:56%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0;font-weight:700" readonly>'+
-    '</div>';
-  var stdRow='<tr>'+
-    '<td class="v" style="min-width:160px;position:relative">'+acctW+'</td>'+
-    '<td style="min-width:80px"><input id="f-jeokyo" type="text" placeholder="적요 입력" '+ist+'></td>'+
-    '<td class="v" style="min-width:90px"><select id="f-cc" '+iss+' onchange="fOnCC()">'+ccOpts+'</select></td>'+
-    '<td style="min-width:120px"><input id="f-ccn" type="text" '+ist+' readonly></td>'+
-    '<td class="v" style="min-width:110px"><select id="f-prg" '+iss+'>'+prgOpts+'</select></td>'+
-    '<td class="v" style="min-width:120px"><select id="f-bikmok" '+iss+'><option value="">CC 선택 후...</option></select></td>'+
-    '<td style="min-width:55px"><input id="f-taxnm" type="text" '+ist+' readonly></td>'+
-    '<td style="min-width:80px"><input id="f-supply" type="number" placeholder="공급가액" '+ist+' oninput="fCalcVat()"></td>'+
-    '<td style="min-width:70px"><input id="f-vat" type="number" placeholder="부가세" '+ist+'></td>'+
-  '</tr>';
-  var STD_COLS=['계정코드/계정명','적요','코스트센터 코드','코스트센터명','예산PRG','계약비목','세금코드명','공급가액','부가세액'];
-  var stdTbl='<div class="ftbl-wrap"><table class="ftbl"><thead><tr>'+STD_COLS.map(function(c){return'<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>'+stdRow+'</tbody></table></div>';
-  var ckRow='<tr>'+
-    '<td class="v" style="min-width:160px;position:relative">'+acctW+'</td>'+
-    '<td style="min-width:80px"><input id="f-jeokyo" type="text" placeholder="적요 입력" '+ist+'></td>'+
-    '<td class="v" style="min-width:90px"><select id="f-cc" '+iss+' onchange="fOnCC()">'+ccOpts+'</select></td>'+
-    '<td style="min-width:120px"><input id="f-ccn" type="text" '+ist+' readonly></td>'+
-    '<td class="v" style="min-width:110px"><select id="f-prg" '+iss+'>'+prgOpts+'</select></td>'+
-    '<td class="v" style="min-width:120px"><select id="f-bikmok" '+iss+'><option value="">CC 선택 후...</option></select></td>'+
-    '<td style="min-width:80px"><input id="f-supply" type="number" placeholder="공급가액" '+ist+' oninput="calcTotals()"></td>'+
-    '<td>0</td>'+
-  '</tr>';
-  var CK_COLS=['계정코드/계정명','적요','코스트센터 코드','코스트센터명','예산PRG','계약비목','공급가액','부가세액'];
-  var ckTbl='<div class="ftbl-wrap"><table class="ftbl"><thead><tr>'+CK_COLS.map(function(c){return'<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>'+ckRow+'</tbody></table></div>';
+  window._rowIst=ist;window._rowIss=iss;window._rowCcOpts=ccOpts;window._rowPrgOpts=prgOpts;
+  window._makeRow=function(i){
+    var _i=ist,_s=iss,_c=ccOpts,_p=prgOpts;
+    return '<td class="v" style="min-width:160px">'+
+      '<input id="f-acct-in-'+i+'" type="text" placeholder="계정 코드/이름 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value,'+i+')" autocomplete="off">'+
+      '<div style="display:flex;gap:3px;margin-top:4px">'+
+      '<input id="f-acct-code-'+i+'" type="text" placeholder="코드" style="width:44%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;font-weight:700" readonly>'+
+      '<input id="f-acct-name-'+i+'" type="text" placeholder="계정명" style="width:56%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0;font-weight:700" readonly>'+
+      '</div></td>'+
+      '<td style="min-width:80px"><input id="f-jeokyo-'+i+'" type="text" placeholder="적요 입력" '+_i+'></td>'+
+      '<td class="v" style="min-width:90px"><select id="f-cc-'+i+'" '+_s+' onchange="fOnCC('+i+')">'+_c+'</select></td>'+
+      '<td style="min-width:120px"><input id="f-ccn-'+i+'" type="text" '+_i+' readonly></td>'+
+      '<td class="v" style="min-width:110px"><select id="f-prg-'+i+'" '+_s+'>'+_p+'</select></td>'+
+      '<td class="v" style="min-width:120px"><select id="f-bikmok-'+i+'" '+_s+'><option value="">CC 선택 후...</option></select></td>'+
+      '<td style="min-width:55px"><input id="f-taxnm-'+i+'" type="text" '+_i+' readonly></td>'+
+      '<td style="min-width:80px"><input id="f-supply-'+i+'" type="number" placeholder="공급가액" '+_i+' oninput="fCalcVat('+i+')"></td>'+
+      '<td style="min-width:70px"><input id="f-vat-'+i+'" type="number" placeholder="부가세" '+_i+'></td>'+
+      '<td><button onclick="delRow('+i+')" style="background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 8px;font-size:13px;cursor:pointer;font-weight:700">✕</button></td>';
+  };
+  window._makeCkRow=function(i){
+    var _i=ist,_s=iss,_c=ccOpts,_p=prgOpts;
+    return '<td class="v" style="min-width:160px">'+
+      '<input id="f-acct-in-'+i+'" type="text" placeholder="계정 코드/이름 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value,'+i+')" autocomplete="off">'+
+      '<div style="display:flex;gap:3px;margin-top:4px">'+
+      '<input id="f-acct-code-'+i+'" type="text" placeholder="코드" style="width:44%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;font-weight:700" readonly>'+
+      '<input id="f-acct-name-'+i+'" type="text" placeholder="계정명" style="width:56%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0;font-weight:700" readonly>'+
+      '</div></td>'+
+      '<td style="min-width:80px"><input id="f-jeokyo-'+i+'" type="text" placeholder="적요 입력" '+_i+'></td>'+
+      '<td class="v" style="min-width:90px"><select id="f-cc-'+i+'" '+_s+' onchange="fOnCC('+i+')">'+_c+'</select></td>'+
+      '<td style="min-width:120px"><input id="f-ccn-'+i+'" type="text" '+_i+' readonly></td>'+
+      '<td class="v" style="min-width:110px"><select id="f-prg-'+i+'" '+_s+'>'+_p+'</select></td>'+
+      '<td class="v" style="min-width:120px"><select id="f-bikmok-'+i+'" '+_s+'><option value="">CC 선택 후...</option></select></td>'+
+      '<td style="min-width:80px"><input id="f-supply-'+i+'" type="number" placeholder="공급가액" '+_i+' oninput="calcTotals()"></td>'+
+      '<td>0</td>'+
+      '<td><button onclick="delRow('+i+')" style="background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 8px;font-size:13px;cursor:pointer;font-weight:700">✕</button></td>';
+  };
+  var STD_COLS=['계정코드/계정명','적요','코스트센터 코드','코스트센터명','예산PRG','계약비목','세금코드명','공급가액','부가세액',''];
+  var stdTbl='<div class="ftbl-wrap"><table class="ftbl"><thead><tr>'+STD_COLS.map(function(c){return'<th>'+c+'</th>';}).join('')+'</tr></thead><tbody id="f-stdtbl-tbody"><tr id="f-row-0">'+window._makeRow(0)+'</tr></tbody></table></div>'+
+    '<button onclick="addRow()" style="margin-top:8px;background:var(--bg3);color:var(--pt);border:1px dashed var(--pt);border-radius:6px;padding:5px 16px;font-size:11px;font-weight:700;cursor:pointer">+ 행 추가</button>';
+  var CK_COLS=['계정코드/계정명','적요','코스트센터 코드','코스트센터명','예산PRG','계약비목','공급가액','부가세액',''];
+  var ckTbl='<div class="ftbl-wrap"><table class="ftbl"><thead><tr>'+CK_COLS.map(function(c){return'<th>'+c+'</th>';}).join('')+'</tr></thead><tbody id="f-cktbl-tbody"><tr id="f-row-0">'+window._makeCkRow(0)+'</tr></tbody></table></div>'+
+    '<button onclick="addRow()" style="margin-top:8px;background:var(--bg3);color:var(--pt);border:1px dashed var(--pt);border-radius:6px;padding:5px 16px;font-size:11px;font-weight:700;cursor:pointer">+ 행 추가</button>';
 
   // --- HEADERS ---
   var DESC='<div style="font-size:10px;color:var(--tx3);margin-bottom:6px">';
@@ -1092,21 +1159,21 @@ function renderForms(){
     kitaTabs+='<button onclick="switchKita(\''+t.k+'\')" style="padding:6px 14px;font-size:11px;border-radius:8px;border:none;cursor:pointer;background:'+(on?'var(--pt)':'var(--bg3)')+';color:'+(on?'#18181b':'var(--tx)')+';font-weight:'+(on?700:400)+'">'+t.l+'</button>';
   });
   kitaTabs+='</div>';
-  var acctW2='<input id="f-acct-in" type="text" placeholder="계정 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value)" autocomplete="off">'+
-    '<input id="f-acct-code" type="text" placeholder="코드" style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;margin-top:4px;font-weight:700" readonly>';
+  var acctW2='<input id="f-acct-in-0" type="text" placeholder="계정 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value,0)" autocomplete="off">'+
+    '<input id="f-acct-code-0" type="text" placeholder="코드" style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;margin-top:4px;font-weight:700" readonly>';
   var arapRow='<tr><td>대변</td>'+
     '<td class="v"><input id="f-arap-jno" type="text" placeholder="전표번호" '+ist2+'></td>'+
     '<td>ZM</td>'+
     '<td class="v" style="min-width:130px;position:relative">'+acctW2+'</td>'+
-    '<td><input id="f-acct-name" type="text" placeholder="계정명" '+ist2+' readonly></td>'+
+    '<td><input id="f-acct-name-0" type="text" placeholder="계정명" '+ist2+' readonly></td>'+
     '<td class="v"><input id="f-arap-bal" type="number" placeholder="발생액" '+ist2+'></td>'+
     '<td class="v"><input id="f-arap-rem" type="number" placeholder="잔액" '+ist2+'></td>'+
     '<td>0</td>'+
     '<td class="v"><input id="f-arap-dae" type="number" placeholder="대변액" '+ist2+'></td>'+
-    '<td class="v"><select id="f-cc" '+iss2+' onchange="fOnCC()">'+ccOpts+'</select></td>'+
-    '<td><input id="f-ccn" type="text" '+ist2+' readonly></td>'+
+    '<td class="v"><select id="f-arap-cc" '+iss2+' onchange="(function(){var s=document.getElementById(\'f-arap-cc\');var n=document.getElementById(\'f-arap-ccn\');if(n)n.value=CC_MAP[s.value]||\'\'})()">'+ccOpts+'</select></td>'+
+    '<td><input id="f-arap-ccn" type="text" '+ist2+' readonly></td>'+
     '<td><input id="f-arap-vendor" type="text" placeholder="거래처명" '+ist2+'></td>'+
-    '<td><input id="f-jeokyo" type="text" placeholder="적요" '+ist2+'></td>'+
+    '<td><input id="f-arap-jeokyo" type="text" placeholder="적요" '+ist2+'></td>'+
   '</tr>';
   var ARAP_COLS=['대차','전표번호','전표유형','계정코드','계정명','발생액','잔액','차변액','대변액','코스트센터 코드','코스트센터명','거래처명','적요'];
   var arapContent='<div class="form-sec">● 기본정보</div>'+
@@ -1118,12 +1185,12 @@ function renderForms(){
     '<td class="v"><input id="f-jd-jno" type="text" placeholder="전표번호" '+ist2+'></td>'+
     '<td>H</td><td>W1/W3</td>'+
     '<td class="v"><input id="f-date3" type="text" placeholder="증빙일자" '+ist2+'></td>'+
-    '<td class="v"><input id="f-supply" type="number" placeholder="금액" '+ist2+'></td>'+
+    '<td class="v"><input id="f-jd-supply" type="number" placeholder="금액" '+ist2+'></td>'+
     '<td class="v"><input id="f-jd-vendor" type="text" placeholder="거래처명" '+ist2+'></td>'+
     '<td>미지급금-일반</td>'+
-    '<td class="v"><select id="f-cc" '+iss2+' onchange="fOnCC()">'+ccOpts+'</select></td>'+
-    '<td><input id="f-ccn" type="text" '+ist2+' readonly></td>'+
-    '<td><input id="f-jeokyo" type="text" placeholder="적요" '+ist2+'></td>'+
+    '<td class="v"><select id="f-jd-cc" '+iss2+' onchange="(function(){var s=document.getElementById(\'f-jd-cc\');var n=document.getElementById(\'f-jd-ccn\');if(n)n.value=CC_MAP[s.value]||\'\'})()">'+ccOpts+'</select></td>'+
+    '<td><input id="f-jd-ccn" type="text" '+ist2+' readonly></td>'+
+    '<td><input id="f-jd-jeokyo" type="text" placeholder="적요" '+ist2+'></td>'+
   '</tr>';
   var JD_COLS=['전표번호','대차','전표유형','증빙일자','금액','거래처명','계정명','코스트센터 코드','코스트센터명','적요'];
   var jeondoContent='<div class="form-sec">● 기본정보</div>'+

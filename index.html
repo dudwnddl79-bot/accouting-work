@@ -804,17 +804,23 @@ function calcTotals(){
 
 var _fAcctMatches=[];
 function fAcctSearch(q){
-  var drop=document.getElementById('f-acct-drop');if(!drop)return;
-  if(!q.trim()){drop.style.display='none';_fAcctMatches=[];return;}
+  var p=document.getElementById('_ap');
+  if(!q.trim()){if(p)p.style.display='none';_fAcctMatches=[];return;}
   var lq=q.toLowerCase();
   _fAcctMatches=ACCT_LIST.filter(function(a){return a.c.indexOf(q)>=0||a.n.toLowerCase().indexOf(lq)>=0;}).slice(0,20);
-  if(!_fAcctMatches.length){drop.style.display='none';return;}
-  drop.innerHTML=_fAcctMatches.map(function(a,i){
-    return'<div style="padding:6px 10px;cursor:pointer;border-bottom:1px solid var(--br);font-size:11px" '+
+  if(!_fAcctMatches.length){if(p)p.style.display='none';return;}
+  if(!p){p=document.createElement('div');p.id='_ap';document.body.appendChild(p);}
+  var inp=document.getElementById('f-acct-in');
+  var r=inp?inp.getBoundingClientRect():{left:10,bottom:60};
+  var lx=Math.max(4,Math.min(r.left,window.innerWidth-308));
+  p.style.cssText='position:fixed;left:'+lx+'px;top:'+(r.bottom+3)+'px;z-index:9998;background:var(--bg2);border:1px solid var(--br);border-radius:10px;width:304px;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.7)';
+  p.innerHTML=_fAcctMatches.map(function(a,i){
+    return'<div style="padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--br);font-size:12px" '+
       'onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'" onclick="fAcctSel('+i+')">'+
-      '<span style="font-family:monospace;color:var(--pt)">'+a.c+'</span>  '+a.n+'</div>';
+      '<span style="font-family:monospace;color:var(--pt);font-weight:700">'+a.c+'</span>'+
+      '<span style="color:var(--tx);font-weight:600;margin-left:8px">'+a.n+'</span></div>';
   }).join('');
-  drop.style.display='block';
+  p.style.display='block';
 }
 function fAcctSel(i){
   var a=_fAcctMatches[i];if(!a)return;
@@ -824,8 +830,15 @@ function fAcctSel(i){
   if(inp)inp.value=a.c+' | '+a.n;
   if(code)code.value=a.c;
   if(nm)nm.value=a.n;
-  var drop=document.getElementById('f-acct-drop');if(drop)drop.style.display='none';
+  var p=document.getElementById('_ap');if(p)p.style.display='none';
 }
+document.addEventListener('click',function(e){
+  var p=document.getElementById('_ap');
+  if(p&&p.style.display!=='none'&&!p.contains(e.target)){
+    var inp=document.getElementById('f-acct-in');
+    if(!inp||e.target!==inp)p.style.display='none';
+  }
+},{passive:true});
 function fOnCC(){
   var sel=document.getElementById('f-cc');if(!sel)return;
   var cc=sel.value;
@@ -999,9 +1012,11 @@ function renderForms(){
   var caOpts='<option value="">선택</option><option>외상매출금-원화</option><option>미수금-원화</option><option>미수금-공동도급</option>';
   var totals=FG([IS('총금액','f-total','',2),IS('총공급가액','f-supply-total','',2),IS('총부가세액','f-vat-total','',2)]);
   var deptBlock=FG([SS('귀속부서','f-dept',deptOpts,'fOnDept()'),IS('귀속부서명','f-deptn','',2),IS('','','',0)]);
-  var acctW='<input id="f-acct-in" type="text" placeholder="계정 코드/이름 검색..." '+ist+' oninput="fAcctSearch(this.value)" onblur="setTimeout(function(){var d=document.getElementById(\'f-acct-drop\');if(d)d.style.display=\'none\'},200)" autocomplete="off">'+
-    '<div id="f-acct-drop" style="display:none;position:absolute;top:100%;left:0;width:280px;background:var(--bg2);border:1px solid var(--br);border-radius:6px;max-height:160px;overflow-y:auto;z-index:500;box-shadow:0 4px 12px rgba(0,0,0,.5)"></div>'+
-    '<div style="display:flex;gap:3px;margin-top:4px"><input id="f-acct-code" type="text" placeholder="코드" style="width:44%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:monospace;outline:none;padding:1px 0" readonly><input id="f-acct-name" type="text" placeholder="계정명" style="width:56%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0" readonly></div>';
+  var acctW='<input id="f-acct-in" type="text" placeholder="계정 코드/이름 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value)" autocomplete="off">'+
+    '<div style="display:flex;gap:3px;margin-top:4px">'+
+    '<input id="f-acct-code" type="text" placeholder="코드" style="width:44%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;font-weight:700" readonly>'+
+    '<input id="f-acct-name" type="text" placeholder="계정명" style="width:56%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:inherit;outline:none;padding:1px 0;font-weight:700" readonly>'+
+    '</div>';
   var stdRow='<tr>'+
     '<td class="v" style="min-width:160px;position:relative">'+acctW+'</td>'+
     '<td style="min-width:80px"><input id="f-jeokyo" type="text" placeholder="적요 입력" '+ist+'></td>'+
@@ -1077,9 +1092,8 @@ function renderForms(){
     kitaTabs+='<button onclick="switchKita(\''+t.k+'\')" style="padding:6px 14px;font-size:11px;border-radius:8px;border:none;cursor:pointer;background:'+(on?'var(--pt)':'var(--bg3)')+';color:'+(on?'#18181b':'var(--tx)')+';font-weight:'+(on?700:400)+'">'+t.l+'</button>';
   });
   kitaTabs+='</div>';
-  var acctW2='<input id="f-acct-in" type="text" placeholder="계정 검색..." '+ist2+' oninput="fAcctSearch(this.value)" onblur="setTimeout(function(){var d=document.getElementById(\'f-acct-drop\');if(d)d.style.display=\'none\'},200)" autocomplete="off">'+
-    '<div id="f-acct-drop" style="display:none;position:absolute;top:100%;left:0;width:240px;background:var(--bg2);border:1px solid var(--br);border-radius:6px;max-height:160px;overflow-y:auto;z-index:500;box-shadow:0 4px 12px rgba(0,0,0,.5)"></div>'+
-    '<input id="f-acct-code" type="text" placeholder="코드" style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--tx);font-family:monospace;outline:none;padding:1px 0;margin-top:3px" readonly>';
+  var acctW2='<input id="f-acct-in" type="text" placeholder="계정 검색..." style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:var(--bg3);color:var(--tx);font-size:11px;font-weight:700;font-family:inherit;outline:none;padding:3px 4px;border-radius:4px" oninput="fAcctSearch(this.value)" autocomplete="off">'+
+    '<input id="f-acct-code" type="text" placeholder="코드" style="width:100%;border:none;border-bottom:1px dashed var(--pt);background:transparent;font-size:10px;color:var(--pt);font-family:monospace;outline:none;padding:1px 0;margin-top:4px;font-weight:700" readonly>';
   var arapRow='<tr><td>대변</td>'+
     '<td class="v"><input id="f-arap-jno" type="text" placeholder="전표번호" '+ist2+'></td>'+
     '<td>ZM</td>'+

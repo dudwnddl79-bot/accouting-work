@@ -735,6 +735,40 @@ var CC_BIKMOK={
   BBW1003:['제경비-비정산','소수선비-비정산','로더유지비-비정산','분석비-비정산','전력비-정산','약품비-정산','폐기물처리비-정산','수선유지비(정산)-정산','외주용역비-정산','부산물 약품(CaCO3)-정산','별도정산-정산','계약외-비정산'],
   BBW1004:['제경비-비정산','수선유지비-비정산','분석비-비정산','유형자산비-비정산','전력비-정산','약품비-정산','폐기물처리비-정산','외주용역비-정산','별도정산-정산','계약 외-비정산']
 };
+var DEFAULT_FORMS=[
+  {type:'chaekwon',title:'진행매출 상계_구미',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_구미','f-cc':'BBW1002','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
+  {type:'chaekwon',title:'진행매출 상계_구미증설',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_구미증설','f-cc':'BBW1003','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
+  {type:'chaekwon',title:'진행매출 상계_김천',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_김천','f-cc':'BBW1004','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
+  {type:'chaekwon',title:'위탁비 청구_구미',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_구미','f-cc':'BBW1002','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
+  {type:'chaekwon',title:'위탁비 청구_구미증설',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_구미증설','f-cc':'BBW1003','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
+  {type:'chaekwon',title:'위탁비 청구_김천',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_김천','f-cc':'BBW1004','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'식대_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'직원 식대_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'식대_구미증설',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'직원 식대_구미증설','f-cc':'BBW1003','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'식대_김천',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'직원 식대_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'코웨이 정수기_구미',_default:true,fields:{'f-taxcode':'10%','f-buyer':'코웨이(주)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'코웨이 정수기 렌탈료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'청소용역_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'청소용역_김천',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'수질분석_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'수질 분석비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_구미',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_구미증설',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'약품 구매_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_김천',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'슬러지 처리비_구미',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'슬러지 처리비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'슬러지 처리비_구미증설',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'슬러지 처리비_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'jiro',title:'KT 인터넷_구미',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'인터넷','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'KT 인터넷 요금_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'jiro',title:'KT 인터넷_김천',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'인터넷','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'KT 인터넷 요금_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'jiro',title:'KT 전화_구미',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'전화/전기/TV','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'KT 전화 요금_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'jiro',title:'가스비_구미숙소',_default:true,fields:{'f-jiro-type':'전화/전기/TV','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 가스비_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'jiro',title:'전기료_구미숙소',_default:true,fields:{'f-jiro-type':'전화/전기/TV','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 전기료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'숙소임차료_구미',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 임차료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'숙소임차료_김천',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'숙소 임차료_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'앤탈로 임차료_구미',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-buyer':'앤탈로','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5110107','f-acct-name':'지급임차료-앤탈로','f-jeokyo':'구미 현장 컨테이너 사무실 임차료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'사무실관리비_김천',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5110102','f-acct-name':'지급임차료-부동산','f-jeokyo':'김천 사무실 관리비','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'안전장비구매',_default:true,fields:{'f-hold':'소액자금본사',_rows:[{'f-acct-code':'5129001','f-acct-name':'안전관리비-일반','f-jeokyo':'안전장비 구매','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'kita',kita:'arap',title:'입금채권반제_구미',_default:true,fields:{'f-jeokyo-header':'입금 채권 반제_구미','f-arap-cc':'BBW1002','f-arap-ccn':'(민간)구미코오롱폐수',_rows:[]}},
+  {type:'kita',kita:'arap',title:'입금채권반제_김천',_default:true,fields:{'f-jeokyo-header':'입금 채권 반제_김천','f-arap-cc':'BBW1004','f-arap-ccn':'(민간)김천코오롱폐수',_rows:[]}},
+  {type:'kita',kita:'jeondo',title:'전도금정산_구미',_default:true,fields:{'f-jeokyo-header':'전도금 정산_구미','f-jd-cc':'BBW1002','f-jd-ccn':'(민간)구미코오롱폐수',_rows:[]}},
+  {type:'kita',kita:'jeondo',title:'전도금정산_김천',_default:true,fields:{'f-jeokyo-header':'전도금 정산_김천','f-jd-cc':'BBW1004','f-jd-ccn':'(민간)김천코오롱폐수',_rows:[]}}
+];
 var SAVED_FORMS=[];
 (function(){try{SAVED_FORMS=JSON.parse(localStorage.getItem('jepyo_forms')||'[]');}catch(e){SAVED_FORMS=[];}})();
 function jepyoSave(){try{localStorage.setItem('jepyo_forms',JSON.stringify(SAVED_FORMS));}catch(e){}}
@@ -996,6 +1030,16 @@ function fDeleteForm(idx){
   var sq=document.getElementById('f-saved-search');
   renderSavedList(sq?sq.value:'');
 }
+function fLoadDefault(idx){
+  var e=DEFAULT_FORMS[idx];if(!e)return;
+  var needSwitch=e.type!==formType||(e.type==='kita'&&e.kita&&e.kita!==kitaType);
+  if(needSwitch){
+    formType=e.type;
+    if(e.kita)kitaType=e.kita;
+    renderForms();
+    setTimeout(function(){fLoadFormFields(e);},40);
+  }else{fLoadFormFields(e);}
+}
 function renderSavedList(q){
   var el=document.getElementById('f-saved-list');if(!el)return;
   var items=SAVED_FORMS;
@@ -1006,29 +1050,55 @@ function renderSavedList(q){
   });}
   var TN={tax:'세금계산서',normal:'일반전표',jiro:'지로',silmool:'실물계산서',chaekwon:'채권전표',kita:'기타전표'};
   var ORDER=['normal','silmool','tax','jiro','chaekwon','kita'];
-  if(!items.length){el.innerHTML='<div style="color:var(--tx3);font-size:12px;padding:10px;text-align:center">저장된 전표 없음</div>';return;}
-  var groups={};
-  items.forEach(function(e){var t=e.type||'normal';if(!groups[t])groups[t]=[];groups[t].push(e);});
+  var dItems=DEFAULT_FORMS;
+  if(q){var dlq=q.toLowerCase();dItems=dItems.filter(function(e){return(e.title||'').toLowerCase().indexOf(dlq)>=0;});}
+  var hasUser=items.length>0,hasDef=dItems.length>0;
+  if(!hasUser&&!hasDef){el.innerHTML='<div style="color:var(--tx3);font-size:12px;padding:10px;text-align:center">저장된 전표 없음</div>';return;}
   var h='';
-  ORDER.forEach(function(type){
-    if(!groups[type]||!groups[type].length)return;
-    h+='<div style="padding:5px 10px 4px;font-size:10px;font-weight:700;color:var(--pt);background:rgba(245,158,11,0.08);border-bottom:1px solid var(--br);letter-spacing:0.03em">'+
-      '▸ '+(TN[type]||type)+' ('+groups[type].length+'건)</div>';
-    groups[type].forEach(function(e){
-      var ri=SAVED_FORMS.indexOf(e);
-      var dt=new Date(e.ts);
-      var ds=(dt.getMonth()+1)+'/'+(dt.getDate())+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2));
-      var ttl=String(e.title||ds).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-      var sub=ds+(e.kita&&e.type==='kita'?' · '+e.kita:'');
-      h+='<div style="display:flex;align-items:center;gap:6px;padding:7px 10px 7px 16px;border-bottom:1px solid var(--br)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'">'+
-        '<div style="flex:1;cursor:pointer;min-width:0" onclick="fLoadForm('+ri+')">'+
-        '<div style="font-size:12px;font-weight:700;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+ttl+'</div>'+
-        '<div style="font-size:10px;color:var(--tx3);margin-top:1px">'+sub+'</div>'+
-        '</div>'+
-        '<button onclick="fDeleteForm('+ri+')" style="background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;flex-shrink:0">삭제</button>'+
-      '</div>';
+  if(hasUser){
+    var groups={};
+    items.forEach(function(e){var t=e.type||'normal';if(!groups[t])groups[t]=[];groups[t].push(e);});
+    ORDER.forEach(function(type){
+      if(!groups[type]||!groups[type].length)return;
+      h+='<div style="padding:5px 10px 4px;font-size:10px;font-weight:700;color:var(--pt);background:rgba(245,158,11,0.08);border-bottom:1px solid var(--br);letter-spacing:0.03em">'+
+        '▸ '+(TN[type]||type)+' ('+groups[type].length+'건)</div>';
+      groups[type].forEach(function(e){
+        var ri=SAVED_FORMS.indexOf(e);
+        var dt=new Date(e.ts);
+        var ds=(dt.getMonth()+1)+'/'+(dt.getDate())+' '+dt.getHours()+':'+(('0'+dt.getMinutes()).slice(-2));
+        var ttl=String(e.title||ds).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        var sub=ds+(e.kita&&e.type==='kita'?' · '+e.kita:'');
+        h+='<div style="display:flex;align-items:center;gap:6px;padding:7px 10px 7px 16px;border-bottom:1px solid var(--br)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'">'+
+          '<div style="flex:1;cursor:pointer;min-width:0" onclick="fLoadForm('+ri+')">'+
+          '<div style="font-size:12px;font-weight:700;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+ttl+'</div>'+
+          '<div style="font-size:10px;color:var(--tx3);margin-top:1px">'+sub+'</div>'+
+          '</div>'+
+          '<button onclick="fDeleteForm('+ri+')" style="background:rgba(239,68,68,0.15);color:#ef4444;border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;flex-shrink:0">삭제</button>'+
+        '</div>';
+      });
     });
-  });
+  }
+  if(hasDef){
+    h+='<div style="padding:5px 10px 4px;font-size:10px;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.07);border-top:'+(hasUser?'2px':'0')+'px solid var(--br);border-bottom:1px solid var(--br);letter-spacing:0.03em">▸ 기본 양식 ('+dItems.length+'건) — 모든 기기에서 사용 가능</div>';
+    var dGroups={};
+    dItems.forEach(function(e){var t=e.type||'normal';if(!dGroups[t])dGroups[t]=[];dGroups[t].push(e);});
+    ORDER.forEach(function(type){
+      if(!dGroups[type]||!dGroups[type].length)return;
+      h+='<div style="padding:3px 10px 3px 20px;font-size:9px;font-weight:700;color:#38bdf8;opacity:0.7;border-bottom:1px solid var(--br)">'+
+        ' ▸ '+(TN[type]||type)+' ('+dGroups[type].length+'건)</div>';
+      dGroups[type].forEach(function(e){
+        var di=DEFAULT_FORMS.indexOf(e);
+        var ttl=String(e.title||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        h+='<div style="display:flex;align-items:center;gap:6px;padding:6px 10px 6px 20px;border-bottom:1px solid var(--br)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'">'+
+          '<div style="flex:1;cursor:pointer;min-width:0" onclick="fLoadDefault('+di+')">'+
+          '<div style="font-size:12px;font-weight:700;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+ttl+'</div>'+
+          '<div style="font-size:10px;color:#38bdf8;margin-top:1px">기본양식'+(e.kita&&e.type==='kita'?' · '+e.kita:'')+'</div>'+
+          '</div>'+
+          '<button onclick="fLoadDefault('+di+')" style="background:rgba(56,189,248,0.15);color:#38bdf8;border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;flex-shrink:0">불러오기</button>'+
+        '</div>';
+      });
+    });
+  }
   el.innerHTML=h;
 }
 var kitaType='arap';
@@ -1212,7 +1282,7 @@ function renderForms(){
   h+='<h3 style="margin:0 0 10px;font-size:17px">📋 전표 양식</h3>';
   h+='<div style="font-size:10px;color:var(--tx3);margin-bottom:10px">회색=고정값 · 흰칸=직접입력 · 계정코드 검색 선택→자동완성 · CC선택→계약비목 자동연동</div>';
   h+='<div style="background:var(--bg3);border-radius:10px;padding:10px 12px;margin-bottom:14px">';
-  h+='<div style="font-size:11px;font-weight:700;color:var(--pt);margin-bottom:8px">📁 저장된 전표 ('+SAVED_FORMS.length+'건)</div>';
+  h+='<div style="font-size:11px;font-weight:700;color:var(--pt);margin-bottom:8px">📁 전표 양식 저장소 <span style="color:var(--tx3);font-weight:400">(저장: '+SAVED_FORMS.length+'건 · 기본: '+DEFAULT_FORMS.length+'건)</span></div>';
   h+='<input id="f-saved-search" type="text" placeholder="저장된 전표 검색..." style="width:100%;background:var(--bg2);border:1px solid var(--br);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--tx);outline:none;box-sizing:border-box;margin-bottom:8px" oninput="renderSavedList(this.value)">';
   h+='<div id="f-saved-list" style="max-height:280px;overflow-y:auto;background:var(--bg2);border-radius:6px;border:1px solid var(--br)"></div>';
   h+='</div>';

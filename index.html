@@ -477,19 +477,24 @@ function renderBanner(){
 
 var SOOKSO=[
   {site:"구미PJT",addr:"경북 구미시 왕산로 28-12, 106동 903호",members:[
-    {name:"이상하",grade:"4급",home:"대구광역시 달성군 화원읍 비슬로2545 101동 503호(화원이진캐슬빌)"},
-    {name:"최종원",grade:"5급",home:"대구광역시 달서구 월곡로 320 108동 1606호",note:"원거리 근무자"},
+    {name:"임동균",grade:"6급",home:"수정필요",note:"원거리 근무자"},
+    {name:"최종원",grade:"5급",home:"대구광역시 달서구 월곡로 320 108동 1606호"},
     {name:"조진현",grade:"5급",home:"경상북도 울릉군 북면 천부길 27-17"}
   ]},
+  {site:"구미PJT",addr:"경북 구미시 왕산로 28-12, 104동 1106호",members:[
+    {name:"이상하",grade:"4급",home:"대구광역시 달성군 화원읍 비슬로2545 101동 503호(화원이진캐스빌)",note:"원거리 근무자"},
+    {name:"방성배",grade:"6급",home:"수정필요"},
+    {name:"최정문",grade:"6급",home:"수정필요"}
+  ]},
   {site:"구미(증설)PJT",addr:"경북 구미시 상사서로 17, 205동 501호",members:[
-    {name:"서진교",grade:"4급",home:"대구광역시 달서구 상인로 105 청구아파트 105동 605호"},
-    {name:"김문규",grade:"5급",home:"경상남도 김해시 진례면 진례로 84번길 20",note:"원거리 근무자"},
-    {name:"채상엽",grade:"5급",home:"대구광역시 수성구 달구벌대로 458길17, 101동 903호(수성1가, 수성그린타운)"}
+    {name:"서진교",grade:"4급",home:"대구광역시 달서구 상인로 105 청구아파트 105동 605호",note:"원거리 근무자"},
+    {name:"김문규",grade:"6급",home:"경상남도 김해시 진례면 진례로 84번길 20"},
+    {name:"채상엽",grade:"6급",home:"대구광역시 수성구 달구벌대로 458길17, 101동 903호(수성1가, 수성그린타운)"}
   ]},
   {site:"김천PJT",addr:"경북 김천시 신기1길 34, 2차 202호",members:[
-    {name:"마민환",grade:"3급",home:"대구광역시 수성구 신매로71 천마타운 231동 107호"},
-    {name:"박동훈",grade:"5급",home:"경상북도 구미시 장천면 강동로 207-9 한올아파트",note:"원거리 근무자"},
-    {name:"김동규",grade:"5급",home:"대구광역시 북구 대천로 100, 208동 106호(동천동, 화성센트럴파크)"}
+    {name:"박장석",grade:"6급",home:"수정필요",note:"원거리 근무자"},
+    {name:"박동훈",grade:"5급",home:"경상북도 구미시 장천면 강동로 207-9 한울아파트"},
+    {name:"김동규",grade:"5급",home:"대구광역시 북구 대천로 100,208동 106호(동천동, 화성센트럴파크)"}
   ]}
 ];
 function renderSookso(){
@@ -736,34 +741,33 @@ var CC_BIKMOK={
   BBW1004:['제경비-비정산','수선유지비-비정산','분석비-비정산','유형자산비-비정산','전력비-정산','약품비-정산','폐기물처리비-정산','외주용역비-정산','별도정산-정산','계약 외-비정산']
 };
 var DEFAULT_FORMS=[
-  {type:'chaekwon',title:'진행매출 상계_구미',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_구미','f-cc':'BBW1002','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
-  {type:'chaekwon',title:'진행매출 상계_구미증설',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_구미증설','f-cc':'BBW1003','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
-  {type:'chaekwon',title:'진행매출 상계_김천',_default:true,fields:{'f-jptype':'진행매출','f-taxcode':'없음','f-ca':'외상매출금-진행매출','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'4011110','f-acct-name':'국내O&M사업수입-조정수익','f-jeokyo':'전월 Utility사용료 진행매출 상계_김천','f-cc':'BBW1004','f-prg':'일반예산','f-taxnm':'없음','f-supply':'','f-vat':'0'}]}},
+  {type:'kita',kita:'arap',title:'진행매출 상계_구미',_default:true,fields:{'f-jeokyo-header':'N월 Utility사용료 진행매출 상계_구미','f-arap-cc':'BBW1002','f-arap-ccn':'(민간)구미코오롱폐수',_rows:[]}},
+  {type:'kita',kita:'arap',title:'진행매출 상계_구미증설',_default:true,fields:{'f-jeokyo-header':'N월 Utility사용료 진행매출 상계_구미증설','f-arap-cc':'BBW1003','f-arap-ccn':'(민간)구미코오롱폐수(증설)',_rows:[]}},
+  {type:'kita',kita:'arap',title:'진행매출 상계_김천',_default:true,fields:{'f-jeokyo-header':'N월 Utility사용료 진행매출 상계_김천','f-arap-cc':'BBW1004','f-arap-ccn':'(민간)김천코오롱폐수',_rows:[]}},
   {type:'chaekwon',title:'위탁비 청구_구미',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_구미','f-cc':'BBW1002','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
   {type:'chaekwon',title:'위탁비 청구_구미증설',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_구미증설','f-cc':'BBW1003','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
   {type:'chaekwon',title:'위탁비 청구_김천',_default:true,fields:{'f-jptype':'일반매출','f-taxcode':'AA매출-세금계산서-전자증빙(10%)','f-ca':'외상매출금-원화','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'4011100','f-acct-name':'국내O&M사업수입','f-jeokyo':'위탁운영비 청구_김천','f-cc':'BBW1004','f-prg':'일반예산','f-taxnm':'AA매출-세금계산서-전자증빙(10%)','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'식대_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'직원 식대_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'식대_구미증설',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'직원 식대_구미증설','f-cc':'BBW1003','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'식대_김천',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'직원 식대_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'코웨이 정수기_구미',_default:true,fields:{'f-taxcode':'10%','f-buyer':'코웨이(주)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'코웨이 정수기 렌탈료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'청소용역_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'청소용역_김천',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'tax',title:'수질분석_구미',_default:true,fields:{'f-taxcode':'10%','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'수질 분석비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'10%','f-supply':'','f-vat':''}]}},
-  {type:'silmool',title:'약품구매_구미',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
-  {type:'silmool',title:'약품구매_구미증설',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'약품 구매_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
-  {type:'silmool',title:'약품구매_김천',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
-  {type:'silmool',title:'슬러지 처리비_구미',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'슬러지 처리비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
-  {type:'silmool',title:'슬러지 처리비_구미증설',_default:true,fields:{'f-taxcode':'VI매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'슬러지 처리비_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
-  {type:'jiro',title:'KT 인터넷_구미',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'인터넷','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'KT 인터넷 요금_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'jiro',title:'KT 인터넷_김천',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'인터넷','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'KT 인터넷 요금_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'jiro',title:'KT 전화_구미',_default:true,fields:{'f-jiro-issuer':'KT','f-jiro-type':'전화/전기/TV','f-buyer':'KT(주)','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'KT 전화 요금_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'tax',title:'식대_구미',_default:true,fields:{'f-buyer':'코오롱글로벌(주)FS구미점','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'N월 식대','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'식대_구미증설',_default:true,fields:{'f-buyer':'코오롱글로벌(주)FS구미점','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'N월 식대','f-cc':'BBW1003','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'식대_김천',_default:true,fields:{'f-buyer':'코오롱글로벌(주)FS김천1점','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'N월 식대','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'코웨이 정수기_구미',_default:true,fields:{'f-buyer':'코웨이(주)','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'코웨이 정수기 렌탈료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'청소용역_구미',_default:true,fields:{'f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'청소용역_김천',_default:true,fields:{'f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'청소용역비_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'tax',title:'수질분석_구미',_default:true,fields:{'f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'수질 분석비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_구미',_default:true,fields:{'f-taxcode':'VI 매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI 매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_구미증설',_default:true,fields:{'f-taxcode':'VI 매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'약품 구매_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI 매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'약품구매_김천',_default:true,fields:{'f-taxcode':'VI 매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'약품 구매_김천','f-cc':'BBW1004','f-prg':'일반예산_정산','f-taxnm':'VI 매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'슬러지 처리비_구미',_default:true,fields:{'f-taxcode':'VI 매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'슬러지 처리비_구미','f-cc':'BBW1002','f-prg':'일반예산_정산','f-taxnm':'VI 매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'silmool',title:'슬러지 처리비_구미증설',_default:true,fields:{'f-taxcode':'VI 매입-세금계산서-일반-실물(10%)','f-payacct':'미지급금-일반','f-dept':'BBW1003','f-deptn':'(민간)구미코오롱폐수(증설)',_rows:[{'f-jeokyo':'슬러지 처리비_구미증설','f-cc':'BBW1003','f-prg':'일반예산_정산','f-taxnm':'VI 매입-세금계산서-일반-실물(10%)','f-supply':'','f-vat':''}]}},
+  {type:'jiro',title:'KT 인터넷_구미',_default:true,fields:{'f-jiro-issuer':'한국통신','f-jiro-type':'전화/전기/TV','f-buyer':'(주)케이티','f-sbn':'1028142945','f-taxcode':'VI 매입-세금계산서-지로-전자승빙(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5108102','f-acct-name':'(원)통신비-인터넷데이타통신','f-jeokyo':'인터넷 사용료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'VI 매입-세금계산서-지로-전자승빙(10%)','f-supply':'','f-vat':''}]}},
+  {type:'jiro',title:'KT 인터넷_김천',_default:true,fields:{'f-jiro-issuer':'한국통신','f-jiro-type':'전화/전기/TV','f-buyer':'(주)케이티','f-sbn':'1028142945','f-taxcode':'VI 매입-세금계산서-지로-전자승빙(10%)','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5108102','f-acct-name':'(원)통신비-인터넷데이타통신','f-jeokyo':'인터넷 사용료','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'VI 매입-세금계산서-지로-전자승빙(10%)','f-supply':'','f-vat':''}]}},
+  {type:'jiro',title:'KT 전화_구미',_default:true,fields:{'f-jiro-issuer':'한국통신','f-jiro-type':'전화/전기/TV','f-buyer':'(주)케이티','f-sbn':'1028142945','f-taxcode':'VI 매입-세금계산서-지로-전자승빙(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5108101','f-acct-name':'(원)통신비-유선전화','f-jeokyo':'kt 전화료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'VI 매입-세금계산서-지로-전자승빙(10%)','f-supply':'','f-vat':''}]}},
   {type:'jiro',title:'가스비_구미숙소',_default:true,fields:{'f-jiro-type':'전화/전기/TV','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 가스비_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
   {type:'jiro',title:'전기료_구미숙소',_default:true,fields:{'f-jiro-type':'전화/전기/TV','f-taxcode':'없음','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 전기료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'normal',title:'숙소임차료_구미',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-jeokyo':'숙소 임차료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'normal',title:'숙소임차료_김천',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'숙소 임차료_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'normal',title:'앤탈로 임차료_구미',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-buyer':'앤탈로','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5110107','f-acct-name':'지급임차료-앤탈로','f-jeokyo':'구미 현장 컨테이너 사무실 임차료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'normal',title:'사무실관리비_김천',_default:true,fields:{'f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5110102','f-acct-name':'지급임차료-부동산','f-jeokyo':'김천 사무실 관리비','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
-  {type:'normal',title:'안전장비구매',_default:true,fields:{'f-hold':'소액자금본사',_rows:[{'f-acct-code':'5129001','f-acct-name':'안전관리비-일반','f-jeokyo':'안전장비 구매','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'숙소임차료_구미(삼도뷰앤빌)',_default:true,fields:{'f-buyer':'박진욱','f-hold':'소액자금본사','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5110102','f-acct-name':'(원)지급임차료-부동산','f-jeokyo':'N월 숙소 임차료(삼도뷰앤빌 106동 903호)','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'숙소임차료_김천',_default:true,fields:{'f-hold':'소액자금본사','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5110102','f-acct-name':'(원)지급임차료-부동산','f-jeokyo':'N월 숙소 임차료_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'사무실관리비_김천',_default:true,fields:{'f-hold':'소액자금본사','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5110102','f-acct-name':'(원)지급임차료-부동산','f-jeokyo':'김천 사무실 관리비','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
+  {type:'normal',title:'안전장비구매',_default:true,fields:{'f-hold':'소액자금본사',_rows:[{'f-acct-code':'5129001','f-acct-name':'(원)안전관리비-일반','f-jeokyo':'안전장비 구매','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0'}]}},
   {type:'kita',kita:'arap',title:'입금채권반제_구미',_default:true,fields:{'f-jeokyo-header':'입금 채권 반제_구미','f-arap-cc':'BBW1002','f-arap-ccn':'(민간)구미코오롱폐수',_rows:[]}},
   {type:'kita',kita:'arap',title:'입금채권반제_김천',_default:true,fields:{'f-jeokyo-header':'입금 채권 반제_김천','f-arap-cc':'BBW1004','f-arap-ccn':'(민간)김천코오롱폐수',_rows:[]}},
   {type:'kita',kita:'jeondo',title:'전도금정산_구미',_default:true,fields:{'f-jeokyo-header':'전도금 정산_구미','f-jd-cc':'BBW1002','f-jd-ccn':'(민간)구미코오롱폐수',_rows:[]}},

@@ -9,6 +9,7 @@
   --pt:#f59e0b;--ptl:rgba(245,158,11,0.12);
   --tx:#f4f4f5;--tx2:#a1a1aa;--tx3:#71717a;
   --br:#3f3f46;
+  --cs:#27272a;--cs2:#3f3f46;
   --red:rgba(239,68,68,0.12);--redt:#fca5a5;
   --blue:rgba(96,165,250,0.12);--bluet:#93c5fd;
   --yel:rgba(245,158,11,0.12);--yelt:#fcd34d;
@@ -815,7 +816,7 @@ var DEFAULT_FORMS=[
   {type:'kita',kita:'jeondo',title:'전도금 정산_구미',_default:true,fields:{'f-jeokyo-header':'전도금 정산_구미','f-jd-cc':'BBW1002','f-jd-ccn':'(민간)구미코오롱폐수',_rows:[]}},
   {type:'kita',kita:'jeondo',title:'전도금 정산_김천',_default:true,fields:{'f-jeokyo-header':'전도금 정산_김천','f-jd-cc':'BBW1004','f-jd-ccn':'(민간)김천코오롱폐수',_rows:[]}},
   {type:'jiro',title:'KT 전화료_김천',_default:true,fields:{'f-jiro-issuer':'한국통신','f-jiro-type':'전화/전기/TV','f-buyer':'(주)케이티','f-taxcode':'VI 매입-세금계산서-지로-전자승빙(10%)','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5108101','f-acct-name':'(원)통신비-유선전화','f-jeokyo':'KT 전화료','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'VI 매입-세금계산서-지로-전자승빙(10%)','f-supply':'','f-vat':'','f-bikmok':'제경비-비정산'}]}},
-  {type:'tax',title:'복합기 임차료',_default:true,fields:{'f-buyer':'캐논코리아(주)','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5110107','f-acct-name':'(원)지급임차료-앤탈료','f-jeokyo':'복합기 임차료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':'','f-bikmok':'계약 외-비정산'},{'f-acct-code':'5110107','f-acct-name':'(원)지급임차료-앤탈료','f-jeokyo':'복합기 임차료','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':'','f-bikmok':'제경비-비정산'}]}},
+  {type:'tax',title:'복합기 임차료',_default:true,fields:{'f-buyer':'캐논코리아(주)','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5110107','f-acct-name':'(원)지급임차료-렌탈료','f-jeokyo':'복합기 임차료','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':'','f-bikmok':'계약 외-비정산'},{'f-acct-code':'5110107','f-acct-name':'(원)지급임차료-렌탈료','f-jeokyo':'복합기 임차료','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':'','f-bikmok':'제경비-비정산'}]}},
   {type:'tax',title:'생수 구매_김천',_default:true,fields:{'f-buyer':'진로명품(진로김천대형)','f-hold':'전도금','f-taxcode':'(VB)세금계산서(10%)','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-jeokyo':'생수 구매_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-taxnm':'(VB)세금계산서(10%)','f-supply':'','f-vat':'','f-bikmok':'제경비-비정산'}]}},
   {type:'normal',title:'전파사용료_구미',_default:true,fields:{'f-buyer':'서울전파관리소','f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1002','f-deptn':'(민간)구미코오롱폐수',_rows:[{'f-acct-code':'5108105','f-acct-name':'(원)통신비-전파사용료','f-jeokyo':'전파사용료_구미','f-cc':'BBW1002','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0','f-bikmok':'제경비-비정산'}]}},
   {type:'normal',title:'전파사용료_김천',_default:true,fields:{'f-buyer':'대전전파관리소','f-hold':'전도금','f-payacct':'미지급금-일반','f-dept':'BBW1004','f-deptn':'(민간)김천코오롱폐수',_rows:[{'f-acct-code':'5108105','f-acct-name':'(원)통신비-전파사용료','f-jeokyo':'전파사용료_김천','f-cc':'BBW1004','f-prg':'일반예산_비정산','f-supply':'','f-vat':'0','f-bikmok':'제경비-비정산'}]}},
